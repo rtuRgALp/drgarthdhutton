@@ -105,7 +105,7 @@
                     <a href="#services" class="text-blue-light hover:text-white transition">Services</a>
                     <a href="#prayer" class="text-blue-light hover:text-white transition">Prayer Card</a>
                     <a href="#memories" class="text-blue-light hover:text-white transition">Memories</a>
-                    <a href="#gallery" class="text-blue-light hover:text-white transition">Gallery</a>
+                    <a href="gallery.html" class="text-blue-light hover:text-white transition">Gallery</a>
                 </div>
                 <button class="md:hidden focus:outline-none">
                     <i data-feather="menu"></i>
@@ -231,19 +231,22 @@
     <section id="gallery" class="py-20 bg-white">
         <div class="max-w-6xl mx-auto px-4" data-aos="fade-up">
             <h2 class="text-3xl font-bold text-center mb-12">Photo Gallery</h2>
-            <div class="flex flex-col md:flex-row items-center justify-center gap-8">
-                <div class="w-full md:w-1/3">
-                    <img src="http://static.photos/family/640x360/20" alt="Highlight Photo" class="rounded-lg shadow-lg w-full">
-                </div>
-                <div class="w-full md:w-2/3 text-center md:text-left">
-                    <p class="text-gray-700 mb-8">A collection of photographs celebrating Dr. Hutton's life is available to view.</p>
-                    <div class="flex justify-center md:justify-start">
-                        <a href="#" class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition duration-300">
-                            <i data-feather="image" class="mr-2 w-4 h-4"></i> View Photo Album
-                        </a>
-                    </div>
-                </div>
+            
+            <!-- Gallery Controls -->
+            <div class="mb-8 flex flex-col md:flex-row justify-between items-center">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 md:mb-0">Memories Collection</h3>
+                <button id="downloadAllBtn" class="flex items-center bg-blue-dark hover:bg-blue-700 text-white px-4 py-2 rounded transition">
+                    <i data-feather="download" class="mr-2"></i> Download All
+                </button>
             </div>
+
+            <!-- Gallery Grid -->
+            <div id="gallery-grid" class="grid grid-cols-3 gap-6">
+                <!-- Images will be dynamically loaded here -->
+            </div>
+
+            <!-- Lightbox Modal -->
+            <div id="lightgallery"></div>
         </div>
     </section>
 
@@ -268,7 +271,7 @@
                         <h4 class="text-lg font-medium mb-4">Memories</h4>
                         <ul class="space-y-2">
                             <li><a href="#memories" class="text-blue-light hover:text-white transition">Life Story</a></li>
-                            <li><a href="#gallery" class="text-blue-light hover:text-white transition">Gallery</a></li>
+                            <li><a href="gallery.html" class="text-blue-light hover:text-white transition">Gallery</a></li>
                         </ul>
                     </div>
                 </div>
@@ -279,6 +282,17 @@
         </div>
     </footer>
 
+    <!-- Scripts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lg-zoom.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lg-thumbnail.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lg-fullscreen.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/lightgallery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/zoom/lg-zoom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/thumbnail/lg-thumbnail.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/fullscreen/lg-fullscreen.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script>
         AOS.init({
             duration: 800,
@@ -286,6 +300,190 @@
             once: true
         });
         feather.replace();
+
+        // Sample image data - replace with your actual image paths
+        const imageData = [
+            { src: 'http://static.photos/family/800x600/1', thumb: 'http://static.photos/family/200x150/1' },
+            { src: 'http://static.photos/family/800x600/2', thumb: 'http://static.photos/family/200x150/2' },
+            { src: 'http://static.photos/family/800x600/3', thumb: 'http://static.photos/family/200x150/3' },
+            { src: 'http://static.photos/family/800x600/4', thumb: 'http://static.photos/family/200x150/4' },
+            { src: 'http://static.photos/family/800x600/5', thumb: 'http://static.photos/family/200x150/5' },
+            { src: 'http://static.photos/family/800x600/6', thumb: 'http://static.photos/family/200x150/6' },
+            { src: 'http://static.photos/family/800x600/7', thumb: 'http://static.photos/family/200x150/7' },
+            { src: 'http://static.photos/family/800x600/8', thumb: 'http://static.photos/family/200x150/8' },
+            { src: 'http://static.photos/family/800x600/9', thumb: 'http://static.photos/family/200x150/9' },
+            { src: 'http://static.photos/family/800x600/10', thumb: 'http://static.photos/family/200x150/10' },
+            { src: 'http://static.photos/family/800x600/11', thumb: 'http://static.photos/family/200x150/11' },
+            { src: 'http://static.photos/family/800x600/12', thumb: 'http://static.photos/family/200x150/12' },
+            { src: 'http://static.photos/family/800x600/13', thumb: 'http://static.photos/family/200x150/13' },
+            { src: 'http://static.photos/family/800x600/14', thumb: 'http://static.photos/family/200x150/14' },
+            { src: 'http://static.photos/family/800x600/15', thumb: 'http://static.photos/family/200x150/15' },
+            { src: 'http://static.photos/family/800x600/16', thumb: 'http://static.photos/family/200x150/16' },
+            { src: 'http://static.photos/family/800x600/17', thumb: 'http://static.photos/family/200x150/17' },
+            { src: 'http://static.photos/family/800x600/18', thumb: 'http://static.photos/family/200x150/18' }
+        ];
+
+        // Initialize gallery
+        let gallery;
+        document.addEventListener('DOMContentLoaded', () => {
+            const galleryGrid = document.getElementById('gallery-grid');
+            
+            // Populate gallery with images
+            imageData.forEach((img) => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item rounded-lg overflow-hidden shadow-md bg-white';
+                item.innerHTML = `
+                    <a href="${img.src}" class="gallery-image">
+                        <img src="${img.thumb}" class="w-full h-48 object-cover">
+                    </a>
+                `;
+                galleryGrid.appendChild(item);
+            });
+
+            // Pagination variables
+            const itemsPerPage = 6;
+            let currentPage = 1;
+            const totalPages = Math.ceil(imageData.length / itemsPerPage);
+
+            // Function to render gallery items for current page
+            function renderGalleryItems() {
+                const galleryGrid = document.getElementById('gallery-grid');
+                galleryGrid.innerHTML = '';
+
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = Math.min(startIndex + itemsPerPage, imageData.length);
+
+                for (let i = startIndex; i < endIndex; i++) {
+                    const img = imageData[i];
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item rounded-lg overflow-hidden shadow-md bg-white';
+                    item.innerHTML = `
+                        <a href="${img.src}" class="gallery-image" data-src="${img.src}">
+                            <img src="${img.thumb}" class="w-full h-64 object-cover">
+                        </a>
+                    `;
+                    galleryGrid.appendChild(item);
+                }
+
+                // Re-init lightGallery for new items
+                if (gallery) {
+                    gallery.destroy();
+                }
+                gallery = lightGallery(document.getElementById('gallery-grid'), {
+                    selector: '.gallery-image',
+                    download: false,
+                    counter: true,
+                    hideBarsDelay: 0,
+                    zoom: true,
+                    thumbnail: true,
+                    animateThumb: true,
+                    showThumbByDefault: true,
+                    galleryId: 'memorial-gallery',
+                    speed: 500,
+                    mode: 'lg-fade',
+                    dynamic: true,
+                    dynamicEl: imageData.slice(startIndex, endIndex).map(img => ({
+                        src: img.src,
+                        thumb: img.thumb,
+                        subHtml: ""
+                    })),
+                    plugins: [lgZoom, lgThumbnail, lgFullscreen]
+                });
+            }
+
+            // Function to update pagination controls
+            function updatePagination() {
+                const paginationContainer = document.createElement('div');
+                paginationContainer.className = 'flex justify-center mt-8 space-x-2';
+                
+                // Previous button
+                const prevBtn = document.createElement('button');
+                prevBtn.className = 'px-4 py-2 rounded bg-blue-dark text-white disabled:opacity-50';
+                prevBtn.innerHTML = '<i data-feather="chevron-left"></i>';
+                prevBtn.disabled = currentPage === 1;
+                prevBtn.addEventListener('click', () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        renderGalleryItems();
+                        updatePagination();
+                    }
+                });
+                paginationContainer.appendChild(prevBtn);
+
+                // Page numbers
+                for (let i = 1; i <= totalPages; i++) {
+                    const pageBtn = document.createElement('button');
+                    pageBtn.className = `px-4 py-2 rounded ${currentPage === i ? 'bg-blue-800 text-white' : 'bg-gray-200 text-gray-800'}`;
+                    pageBtn.textContent = i;
+                    pageBtn.addEventListener('click', () => {
+                        currentPage = i;
+                        renderGalleryItems();
+                        updatePagination();
+                    });
+                    paginationContainer.appendChild(pageBtn);
+                }
+
+                // Next button
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'px-4 py-2 rounded bg-blue-dark text-white disabled:opacity-50';
+                nextBtn.innerHTML = '<i data-feather="chevron-right"></i>';
+                nextBtn.disabled = currentPage === totalPages;
+                nextBtn.addEventListener('click', () => {
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        renderGalleryItems();
+                        updatePagination();
+                    }
+                });
+                paginationContainer.appendChild(nextBtn);
+
+                // Remove existing pagination if it exists
+                const existingPagination = document.querySelector('.pagination-container');
+                if (existingPagination) existingPagination.remove();
+
+                // Add new pagination
+                const gallerySection = document.querySelector('#gallery-grid').parentElement;
+                gallerySection.appendChild(paginationContainer);
+                paginationContainer.classList.add('pagination-container');
+                feather.replace();
+            }
+
+            // Initial render
+            renderGalleryItems();
+            updatePagination();
+
+
+            // Download all images functionality
+            document.getElementById('downloadAllBtn').addEventListener('click', async () => {
+                const zip = new JSZip();
+                const imgFolder = zip.folder("garth_hutton_memorial_images");
+                
+                try {
+                    // Create array of promises for all image downloads
+                    const downloadPromises = imageData.map(async (img, i) => {
+                        try {
+                            const response = await fetch(img.src);
+                            if (!response.ok) throw new Error(`Failed to fetch ${img.src}`);
+                            const blob = await response.blob();
+                            imgFolder.file(`image_${i+1}.jpg`, blob);
+                        } catch (error) {
+                            console.error(`Error downloading image ${i+1}:`, error);
+                        }
+                    });
+
+                    // Wait for all downloads to complete
+                    await Promise.all(downloadPromises);
+
+                    // Generate the zip file
+                    const content = await zip.generateAsync({ type: "blob" });
+                    saveAs(content, "garth_hutton_memorial_images.zip");
+                } catch (error) {
+                    console.error("Error creating zip file:", error);
+                    alert("There was an error preparing the download. Please try again.");
+                }
+            });
+        });
     </script>
 </body>
 </html>
+
