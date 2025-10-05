@@ -325,11 +325,19 @@ Your browser does not support the video tag.
             once: true
         });
         feather.replace();
-        // Prayer Card Files
+        // Prayer Card Files (using static.photos as placeholder)
         const prayerCardFiles = [
-            { name: 'side1.png', url: './images/card/side1.png' },
-            { name: 'side2.png', url: './images/card/side2.png' }
-];
+            { 
+                name: 'prayer_card_front.jpg', 
+                url: 'http://static.photos/document/800x600/1',
+                thumb: 'http://static.photos/document/200x150/1'
+            },
+            { 
+                name: 'prayer_card_back.jpg', 
+                url: 'http://static.photos/document/800x600/2',
+                thumb: 'http://static.photos/document/200x150/2'
+            }
+        ];
 // Sample image data - replace with your actual image paths
 const imageData = [
             { src: 'http://static.photos/family/800x600/1', thumb: 'http://static.photos/family/200x150/1' },
@@ -511,7 +519,6 @@ item.innerHTML = `
                     alert("There was an error preparing the download. Please try again.");
                 }
             });
-
             // Prayer Card Download Functionality
             document.getElementById('downloadPrayerCard').addEventListener('click', async (e) => {
                 e.preventDefault();
@@ -522,37 +529,11 @@ item.innerHTML = `
                     // Create array of promises for all prayer card downloads
                     const downloadPromises = prayerCardFiles.map(async (file) => {
                         try {
-                            try {
-                                // Create a new image element to load the file
-                                const img = new Image();
-                                img.crossOrigin = 'Anonymous';
-                                img.src = file.url;
-                                
-                                await new Promise((resolve, reject) => {
-                                    img.onload = () => {
-                                        // Create canvas to convert to blob
-                                        const canvas = document.createElement('canvas');
-                                        canvas.width = img.width;
-                                        canvas.height = img.height;
-                                        const ctx = canvas.getContext('2d');
-                                        ctx.drawImage(img, 0, 0);
-                                        
-                                        canvas.toBlob((blob) => {
-                                            if (blob) {
-                                                prayerFolder.file(file.name, blob);
-                                                resolve();
-                                            } else {
-                                                reject(new Error('Failed to create blob from image'));
-                                            }
-                                        }, 'image/jpeg', 0.9);
-                                    };
-                                    img.onerror = () => reject(new Error(`Failed to load image ${file.url}`));
-                                });
-                            } catch (error) {
-                                console.error(`Error processing ${file.name}:`, error);
-                                throw error;
-                            }
-} catch (error) {
+                            const response = await fetch(file.url);
+                            if (!response.ok) throw new Error(`Failed to fetch ${file.url}`);
+                            const blob = await response.blob();
+                            prayerFolder.file(file.name, blob);
+                        } catch (error) {
                             console.error(`Error downloading ${file.name}:`, error);
                             throw error;
                         }
@@ -566,11 +547,12 @@ item.innerHTML = `
                     saveAs(content, "garth_hutton_prayer_card.zip");
                 } catch (error) {
                     console.error("Error creating prayer card zip file:", error);
-                    alert("There was an error preparing the prayer card download. Please ensure the images exist at the specified paths and try again.");
-}
+                    alert("There was an error preparing the prayer card download. Please try again.");
+                }
             });
-        });
+});
 </script>
 </body>
 </html>
+
 
