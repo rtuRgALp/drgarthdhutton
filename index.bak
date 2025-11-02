@@ -14,11 +14,11 @@
         .hero-section {
             background: linear-gradient(to right, rgba(4, 45, 98, 0.9) 50%, rgba(4, 45, 98, 0.5)), 
                         url('./images/slideshow/001.jpg');
-            background-size: cover;
+background-size: cover;
             background-position: center top 30%;
             background-blend-mode: multiply;
         }
-        .section-divider {
+.section-divider {
             height: 100px;
             background: linear-gradient(to bottom, #bfe4f9, #8acff2);
         }
@@ -81,20 +81,6 @@
         .border-blue-light {
             border-color: #bfe4f9;
         }
-        .youtube-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-        }
-        .youtube-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
     </style>
 </head>
 <body class="font-sans bg-gray-50">
@@ -106,33 +92,31 @@
                 <h1 class="text-4xl md:text-6xl font-bold mb-4 text-white">Dr. Garth Dalwin Hutton</h1>
                 <p class="text-xl md:text-2xl mb-8 text-white">1961 - 2025</p>
                 <p class="text-lg md:text-xl max-w-2xl mx-auto md:mx-0 text-white">Always with a smile</p>
-                <div class="mt-12">
+<div class="mt-12">
                     <a href="#obituary" class="inline-block bg-white text-gray-800 px-6 py-3 rounded-full font-medium hover:bg-gray-200 transition duration-300 mr-4">Obituary</a>
                     <a href="#services" class="inline-block border border-white text-white px-6 py-3 rounded-full font-medium hover:bg-white hover:text-gray-800 transition duration-300">Services</a>
                 </div>
             </div>
-        </div>
+</div>
     </section>
-
-    <!-- Navigation -->
+<!-- Navigation -->
     <nav class="bg-blue-dark shadow-lg sticky top-0 z-50 text-white">
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex justify-between items-center py-4">
                 <div class="text-xl font-semibold text-white">Dr. Garth Dalwin Hutton</div>
-                <div class="hidden md:flex space-x-8">
+<div class="hidden md:flex space-x-8">
                     <a href="#obituary" class="text-blue-light hover:text-white transition">Obituary</a>
                     <a href="#services" class="text-blue-light hover:text-white transition">Services</a>
                     <a href="#prayer" class="text-blue-light hover:text-white transition">Prayer Card</a>
                     <a href="#memories" class="text-blue-light hover:text-white transition">Memories</a>
                     <a href="./gallery.html" class="text-blue-light hover:text-white transition">Gallery</a>
-                </div>
+</div>
                 <button class="md:hidden focus:outline-none">
                     <i data-feather="menu"></i>
                 </button>
             </div>
         </div>
     </nav>
-
     <!-- Obituary Section -->
     <section id="obituary" class="py-20 bg-white">
         <div class="w-full max-w-7xl mx-auto px-4" data-aos="fade-up">
@@ -140,12 +124,12 @@
             <div class="flex flex-col lg:flex-row items-stretch gap-8 mb-12">
                 <div class="lg:w-1/2">
                     <img src="./images/slideshow/104.jpg" alt="Dr. Garth Dalwin Hutton" class="rounded-lg shadow-lg w-full h-full object-cover min-h-[500px]">
-                </div>
+</div>
                 <div class="lg:w-1/2 text-left">
-                    <p class="text-gray-700 mb-4">Dr. Garth Dalwin Hutton, age 64, of Winter Haven, Florida, passed away on Saturday, August 9, 2025, in Detroit, Michigan—the very day he celebrated his birthday, a final testament to his strength and spirit.</p>
+<p class="text-gray-700 mb-4">Dr. Garth Dalwin Hutton, age 64, of Winter Haven, Florida, passed away on Saturday, August 9, 2025, in Detroit, Michigan—the very day he celebrated his birthday, a final testament to his strength and spirit.</p>
                     <p class="text-gray-700 mb-4">Born on August 9, 1961, in Thompson Town, Clarendon, Jamaica, West Indies, Dr. Hutton later migrated to Toronto, Canada, in the 1980s. He began his professional journey as a delivery driver for UPS, where he worked diligently and rose to the position of Supervisor. In the 1990s, he relocated to Florida and transitioned into a career in healthcare, starting as a Staff Nurse. His passion for service and leadership led him to hold several prominent roles, including Nursing Director, Instructor, Supervisor, and Campus Director. Dr. Hutton ultimately earned his Doctorate and fulfilled a lifelong dream by establishing his own elder care business.</p>
                     <p class="text-gray-700 mb-4">He is lovingly remembered by his devoted wife of 37 years, Odette Hutton; his children: Andrae Hutton, Dr. Gardette Hutton, Ogeeda Vargas (husband Luis), Gareth Hutton, and Dr. Ogarth Hutton; eight cherished grandchildren; his mother, Ms. Eslyn Walker; step-mother: Ms. Daisy Hutton-Stone; sisters: Audrey, Janet, Judith, Karlene, Keisha, Paulette, and Pete-Gaye; brothers: Carl, Dave, Devon, Garfield, Mikey, Sheldon, and Tony —and a host of extended family members and friends who will miss him deeply.</p>
-                    <p class="text-gray-700">A funeral service to celebrate Dr. Hutton's life will be held on Saturday, September 6, 2025, at 11:00 AM at Haven Worship Center, 1835 Overlook Dr., Winter Haven, FL 33884. Interment will follow at Rolling Hills Cemetery, 4810 Tilden Rd., Winter Haven, FL 33881.</p>
+                    <p class="text-gray-700">A funeral service to celebrate Dr. Hutton’s life will be held on Saturday, September 6, 2025, at 11:00 AM at Haven Worship Center, 1835 Overlook Dr., Winter Haven, FL 33884. Interment will follow at Rolling Hills Cemetery, 4810 Tilden Rd., Winter Haven, FL 33881.</p>
                 </div>
             </div>
         </div>
@@ -157,9 +141,10 @@
             <h2 class="text-3xl font-bold text-center mb-12">Funeral Services</h2>
             <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-12">
                 <div class="w-full">
-                    <div class="youtube-container">
-                        <iframe src="https://www.youtube.com/embed/sW86fHx_CtM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
+                    <video controls class="w-full">
+                        <source src="./files/recording/sW86fHx_CtM.mp4" type="video/mp4">
+Your browser does not support the video tag.
+                    </video>
                     <div class="p-8">
                         <h3 class="text-2xl font-semibold mb-4">Memorial Service</h3>
                         <p class="text-gray-700 mb-2"><i data-feather="calendar" class="inline mr-2"></i> Saturday, September 6, 2025</p>
@@ -168,7 +153,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+</div>
     </section>
 
     <!-- Prayer Card Section -->
@@ -185,10 +170,10 @@
                         <h2 class="text-3xl font-bold mb-4 text-gray-900">Dr. Garth Dalwin Hutton</h2>
                         <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-blue-dark">
                             <img src="./images/slideshow/133.jpg" alt="Dr. Garth Dalwin Hutton" class="w-full h-full object-cover">
-                        </div>
+</div>
                         <div class="border-t border-gray-200 w-16 mx-auto mb-6"></div>
                         <p class="text-lg mb-4">Sunrise: August 9, 1961</p>
-                        <p class="text-lg mb-8">Sunset: August 9, 2025</p>
+<p class="text-lg mb-8">Sunset: August 9, 2025</p>
                         
                         <div class="mt-8">
                             <p class="text-gray-700 font-medium">
@@ -200,7 +185,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="prayer-card p-8 text-center" data-aos="fade-left" style="overflow-y: auto; max-height: 600px;">
+                    <div class="prayer-card p-8 text-center" data-aos="fade-left" style="overflow-y: auto; max-height: 600px;">
                     <div class="prayer-card-content">
                         <h2 class="text-3xl font-bold mb-4 text-gray-900">Always with a smile</h2>
                         <div class="border-t border-gray-200 w-16 mx-auto mb-6"></div>
@@ -227,17 +212,17 @@
                             I'll be waiting, I'll be watching, always smiling over you.</p>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="text-center mt-12">
-                <div class="mb-6">
+</div>
+</div>
+<div class="text-center mt-12">
+<div class="mb-6">
                     <p class="text-gray-700 max-w-2xl mx-auto">This digital prayer card is available for download in high resolution for family members to print or keep as a digital keepsake.</p>
                 </div>
                 <div class="flex justify-center">
                     <a href="#" id="downloadPrayerCard" class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition duration-300">
                         <i data-feather="download" class="mr-2 w-4 h-4"></i> Download Prayer Card
                     </a>
-                </div>
+</div>
                 <div class="mt-8 text-sm text-gray-500">
                     <p>For family members needing assistance with printing, please contact Odette at redreading318@gmail.com</p>
                 </div>
@@ -282,7 +267,7 @@
 
             <!-- Gallery Grid -->
             <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto justify-items-center">
-                <!-- Images will be dynamically loaded here -->
+<!-- Images will be dynamically loaded here -->
             </div>
 
             <!-- Lightbox Modal -->
@@ -311,8 +296,8 @@
                         <h4 class="text-lg font-medium mb-4">Memories</h4>
                         <ul class="space-y-2">
                             <li><a href="#memories" class="text-blue-light hover:text-white transition">Life Story</a></li>
-                            <li><a href="./gallery.html" class="text-blue-light hover:text-white transition">Gallery</a></li>
-                        </ul>
+                <li><a href="./gallery.html" class="text-blue-light hover:text-white transition">Gallery</a></li>
+</ul>
                     </div>
                 </div>
             </div>
@@ -340,7 +325,6 @@
             once: true
         });
         feather.replace();
-        
         // Prayer Card Files (using static.photos as placeholder)
         const prayerCardFiles = [
             { 
@@ -354,9 +338,8 @@
                 thumb: 'http://static.photos/document/200x150/2'
             }
         ];
-
-        // Sample image data - replace with your actual image paths
-        const imageData = [
+// Sample image data - replace with your actual image paths
+const imageData = [
             { src: 'http://static.photos/family/800x600/1', thumb: 'http://static.photos/family/200x150/1' },
             { src: 'http://static.photos/family/800x600/2', thumb: 'http://static.photos/family/200x150/2' },
             { src: 'http://static.photos/family/800x600/3', thumb: 'http://static.photos/family/200x150/3' },
@@ -384,12 +367,12 @@
             
             // Populate gallery with images
             imageData.forEach((img) => {
-                const item = document.createElement('div');
-                item.className = 'gallery-item rounded-lg overflow-hidden shadow-md bg-white w-full max-w-xs';
-                item.innerHTML = `
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item rounded-lg overflow-hidden shadow-md bg-white w-full max-w-xs';
+item.innerHTML = `
                     <a href="${img.src}" class="gallery-image">
-                        <img src="${img.thumb}" class="w-full h-48 object-cover mx-auto">
-                    </a>
+                            <img src="${img.thumb}" class="w-full h-48 object-cover mx-auto">
+</a>
                 `;
                 galleryGrid.appendChild(item);
             });
@@ -411,10 +394,10 @@
                     const img = imageData[i];
                     const item = document.createElement('div');
                     item.className = 'gallery-item rounded-lg overflow-hidden shadow-md bg-white w-full max-w-xs';
-                    item.innerHTML = `
+item.innerHTML = `
                         <a href="${img.src}" class="gallery-image" data-src="${img.src}">
                             <img src="${img.thumb}" class="w-full h-64 object-cover mx-auto">
-                        </a>
+</a>
                     `;
                     galleryGrid.appendChild(item);
                 }
@@ -506,6 +489,7 @@
             renderGalleryItems();
             updatePagination();
 
+
             // Download all images functionality
             document.getElementById('downloadAllBtn').addEventListener('click', async () => {
                 const zip = new JSZip();
@@ -535,7 +519,6 @@
                     alert("There was an error preparing the download. Please try again.");
                 }
             });
-
             // Prayer Card Download Functionality
             document.getElementById('downloadPrayerCard').addEventListener('click', async (e) => {
                 e.preventDefault();
@@ -567,7 +550,9 @@
                     alert("There was an error preparing the prayer card download. Please try again.");
                 }
             });
-        });
-    </script>
+});
+</script>
 </body>
 </html>
+
+
