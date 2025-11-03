@@ -1,0 +1,22 @@
+[
+  {
+    "src": "./images/prayer_card/back.png",
+    "w": 500,
+    "h": 2000,
+    "alt": "Back",
+    "title": "Back",
+    "tags": [],
+    "date": "2025-11-03",
+    "format": "png"
+  },
+  {
+    "src": "./images/prayer_card/front.png",
+    "w": 500,
+    "h": 2000,
+    "alt": "Front",
+    "title": "Front",
+    "tags": [],
+    "date": "2025-11-03",
+    "format": "png"
+  }
+]
