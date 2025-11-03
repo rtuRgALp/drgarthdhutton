@@ -1,0 +1,13 @@
+{
+  "name": "memorial-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:manifest": "node scripts/build-manifest.mjs"
+  },
+  "dependencies": {
+    "fast-glob": "^3.3.2",
+    "image-size": "^1.1.1"
+  }
+}
+
