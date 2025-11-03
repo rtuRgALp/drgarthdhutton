@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | In Loving Memory of Dr. Garth Dalwin Hutton</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lg-zoom.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lg-thumbnail.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lg-fullscreen.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        .gh-gallery-container {
+            background: linear-gradient(to bottom, #bfe4f9, #ffffff);
+        }
+        .gh-gallery-card {
+            transition: all 0.3s ease;
+            background: white;
+            box-shadow: 0 4px 6px rgba(4, 45, 98, 0.1);
+        }
+        .gh-gallery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(4, 45, 98, 0.2);
+        }
+        .gh-gallery-img {
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            background: #f7fafc;
+        }
+        .gh-gallery-overlay {
+            background: rgba(4, 45, 98, 0.9);
+        }
+        @media (prefers-reduced-motion) {
+            .gh-gallery-card {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-blue-dark shadow-lg sticky top-0 z-50 text-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <a href="./index.html" class="text-xl font-semibold text-white hover:text-blue-light transition">Dr. Garth Dalwin Hutton</a>
+<div class="hidden md:flex space-x-8">
+                    <a href="./index.html#obituary" class="text-blue-light hover:text-white transition">Obituary</a>
+                    <a href="./index.html#services" class="text-blue-light hover:text-white transition">Services</a>
+                    <a href="./index.html#prayer" class="text-blue-light hover:text-white transition">Prayer Card</a>
+                    <a href="./index.html#memories" class="text-blue-light hover:text-white transition">Memories</a>
+                    <a href="./gallery.html" class="text-white font-medium hover:text-blue-light transition">Gallery</a>
+                </div>
+                <button class="md:hidden focus:outline-none">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Gallery Container -->
+    <main id="gallery-root" class="gh-gallery-container min-h-screen py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <h1 class="text-4xl font-bold text-center mb-8 text-blue-dark">Memory Gallery</h1>
+            
+            <!-- Gallery Controls -->
+            <div class="gh-gallery-controls mb-8 bg-white p-4 rounded-lg shadow-md">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="w-full md:w-auto">
+                        <input type="search" id="gh-search" placeholder="Search memories..." 
+                               class="w-full px-4 py-2 border border-blue-light rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-dark">
+                    </div>
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <button id="gh-download-all" class="gh-gallery-btn bg-blue-dark text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                            <i data-feather="download" class="mr-2"></i> Download All
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div id="gh-gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+
+            <!-- Pagination -->
+            <div id="gh-pagination" class="mt-12 flex justify-center gap-2"></div>
+
+            <!-- Loading State -->
+            <div id="gh-loading" class="text-center py-12">
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-dark"></div>
+                <p class="mt-4 text-blue-dark">Loading memories...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="gh-error" class="hidden text-center py-12">
+                <i data-feather="alert-circle" class="w-12 h-12 text-red-500 mx-auto"></i>
+                <p class="mt-4 text-red-500">Unable to load the gallery. Please try again later.</p>
+                <button id="gh-retry" class="mt-4 bg-blue-dark text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                    Retry
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-blue-dark text-white py-12">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="md:flex md:justify-between">
+                <div class="mb-8 md:mb-0">
+                    <h3 class="text-xl font-semibold mb-4">Dr. Garth Dalwin Hutton</h3>
+                    <p class="text-gray-400">1961 - 2025</p>
+                </div>
+                <div class="grid grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-lg font-medium mb-4">Quick Links</h4>
+                        <ul class="space-y-2">
+                    <li><a href="./index.html#obituary" class="text-white hover:text-blue-light transition">Obituary</a></li>
+                    <li><a href="./index.html#services" class="text-white hover:text-blue-light transition">Services</a></li>
+                    <li><a href="./index.html#prayer" class="text-white hover:text-blue-light transition">Prayer Card</a></li>
+</ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-medium mb-4">Memories</h4>
+                        <ul class="space-y-2">
+                    <li><a href="./index.html#memories" class="text-white hover:text-blue-light transition">Life Story</a></li>
+                    <li><a href="./gallery.html" class="text-blue-light hover:text-white transition">Gallery</a></li>
+</ul>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-blue-light mt-8 pt-8 text-center text-blue-light">
+                <p>© 2025 In Loving Memory of Dr. Garth Dalwin Hutton. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/lightgallery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/zoom/lg-zoom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/thumbnail/lg-thumbnail.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/fullscreen/lg-fullscreen.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="./script.js" type="module"></script>
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>
