@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>In Loving Memory of Dr. Garth Dalwin Hutton</title>
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="./style.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js" defer></script>
     <style>
         .hero-section {
             background: linear-gradient(to right, rgba(4, 45, 98, 0.9) 50%, rgba(4, 45, 98, 0.5)),
@@ -19,50 +19,38 @@
             background-blend-mode: multiply;
         }
         .section-divider { height: 100px; background: linear-gradient(to bottom, #bfe4f9, #8acff2); }
-        .memory-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(4, 45, 98, 0.2); }
-        .photo-gallery img { transition: all 0.3s ease; }
-        .photo-gallery img:hover { transform: scale(1.03); box-shadow: 0 5px 15px rgba(4, 45, 98, 0.2); }
         .prayer-card {
             background: #ffffff; box-shadow: 0 10px 30px rgba(4, 45, 98, 0.1);
             border-radius: 8px; position: relative; overflow: hidden; border: 1px solid #bfe4f9;
         }
-        .prayer-card::before {
-            content: ''; position: absolute; inset: 0; background: rgba(255, 255, 255, 0.95);
-        }
+        .prayer-card::before { content: ''; position: absolute; inset: 0; background: rgba(255, 255, 255, 0.95); }
         .prayer-card-content { position: relative; z-index: 1; }
-        .download-btn { transition: all 0.3s ease; background-color: #042d62; }
-        .download-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(4, 45, 98, 0.3); background-color: #05418a; }
-        .bg-blue-dark { background-color: #042d62; }
-        .bg-blue-light { background-color: #bfe4f9; }
-        .text-blue-dark { color: #042d62; }
-        .text-blue-light { color: #bfe4f9; }
-        .border-blue-dark { border-color: #042d62; }
-        .border-blue-light { border-color: #bfe4f9; }
         .youtube-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
         .youtube-container iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     </style>
 </head>
 <body class="font-sans bg-gray-50">
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero-section min-h-screen flex items-center">
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
             <div class="md:w-1/2 text-center md:text-left mb-8 md:mb-0" data-aos="fade-right">
                 <h1 class="text-4xl md:text-6xl font-bold mb-4 text-white">Dr. Garth Dalwin Hutton</h1>
                 <p class="text-xl md:text-2xl mb-8 text-white">1961 - 2025</p>
                 <p class="text-lg md:text-xl max-w-2xl mx-auto md:mx-0 text-white">Always with a smile</p>
-                <div class="mt-12">
-                    <a href="#obituary" class="inline-block bg-white text-gray-800 px-6 py-3 rounded-full font-medium hover:bg-gray-200 transition duration-300 mr-4">Obituary</a>
-                    <a href="#services" class="inline-block border border-white text-white px-6 py-3 rounded-full font-medium hover:bg-white hover:text-gray-800 transition duration-300">Services</a>
+                <div class="mt-12 flex flex-wrap gap-3 justify-center md:justify-start">
+                    <a href="#obituary" class="btn btn-primary btn-lg">Obituary</a>
+                    <a href="#services" class="btn btn-outline btn-lg">Services</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Navigation -->
+    <!-- Nav -->
     <nav class="bg-blue-dark shadow-lg sticky top-0 z-50 text-white">
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex justify-between items-center py-4">
-                <a href="./index.html" class="text-xl font-semibold text-white hover:text-blue-light transition">Dr. Garth Dalwin Hutton</a>
+                <a href="./index.html" class="text-xl font-semibold text-white hover:text-blue-light transition"
+                   aria-label="Home">Dr. Garth Dalwin Hutton</a>
                 <div class="hidden md:flex space-x-8">
                     <a href="#obituary" class="text-blue-light hover:text-white transition">Obituary</a>
                     <a href="#services" class="text-blue-light hover:text-white transition">Services</a>
@@ -70,20 +58,21 @@
                     <a href="#memories" class="text-blue-light hover:text-white transition">Memories</a>
                     <a href="./gallery.html" class="text-blue-light hover:text-white transition">Gallery</a>
                 </div>
-                <button class="md:hidden focus:outline-none">
+                <button class="md:hidden focus:outline-none" aria-label="Open Menu">
                     <i data-feather="menu"></i>
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- Obituary Section -->
+    <!-- Obituary -->
     <section id="obituary" class="py-20 bg-white">
         <div class="w-full max-w-7xl mx-auto px-4" data-aos="fade-up">
             <h2 class="text-3xl font-bold text-center mb-12">Obituary</h2>
             <div class="flex flex-col lg:flex-row items-stretch gap-8 mb-12">
                 <div class="lg:w-1/2">
-                    <img src="./images/tribute_slideshow/104.jpg" alt="Dr. Garth Dalwin Hutton" class="rounded-lg shadow-lg w-full h-full object-cover min-h-[500px]">
+                    <img src="./images/tribute_slideshow/104.jpg" alt="Dr. Garth Dalwin Hutton"
+                         class="rounded-lg shadow-lg w-full h-full object-cover min-h-[500px]" loading="lazy" decoding="async">
                 </div>
                 <div class="lg:w-1/2 text-left">
                     <p class="text-gray-700 mb-4">Dr. Garth Dalwin Hutton, age 64, of Winter Haven, Florida, passed away on Saturday, August 9, 2025, in Detroit, Michigan—the very day he celebrated his birthday, a final testament to his strength and spirit.</p>
@@ -94,38 +83,40 @@
             </div>
         </div>
     </section>
-    <!-- Funeral Services Section -->
+
+    <!-- Services -->
     <section id="services" class="py-20 bg-blue-light">
         <div class="max-w-6xl mx-auto px-4" data-aos="fade-up">
             <h2 class="text-3xl font-bold text-center mb-12">Funeral Services</h2>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- Memorial Service Video -->
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <div class="w-full">
-                        <div class="youtube-container">
-                            <iframe src="https://www.youtube.com/embed/2NFJY2ACHyg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="p-4 text-center">
-                            <h3 class="text-2xl font-semibold">Memorial Service</h3>
-                        </div>
-</div>
+                    <div class="youtube-container">
+                        <iframe src="https://www.youtube.com/embed/2NFJY2ACHyg?si=35OHu4cVOOG4oj9k"
+                                title="Memorial Service" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen></iframe>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="text-2xl font-semibold">Memorial Service</h3>
+                    </div>
                 </div>
 
-                <!-- Tribute Slideshow Video -->
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <div class="w-full">
-                        <div class="youtube-container">
-                            <iframe src="https://www.youtube.com/embed/4cNV4yzHT1U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="p-4 text-center">
-                            <h3 class="text-2xl font-semibold">Tribute Slideshow</h3>
-                        </div>
-</div>
+                    <div class="youtube-container">
+                        <iframe src="https://www.youtube.com/embed/4cNV4yzHT1U?si=QE01xmCmEzRD1cb9"
+                                title="Tribute Slideshow" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen></iframe>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="text-2xl font-semibold">Tribute Slideshow</h3>
+                    </div>
                 </div>
-</div>
+            </div>
         </div>
     </section>
-<!-- Prayer Card Section -->
+
+    <!-- Prayer Card -->
     <section id="prayer" class="py-20 bg-white">
         <div class="max-w-4xl mx-auto px-4" data-aos="fade-up">
             <h2 class="text-3xl font-bold text-center mb-12">Funeral Prayer Card</h2>
@@ -138,7 +129,7 @@
                         <h3 class="text-2xl font-bold mb-6 text-gray-800">In Loving Memory of</h3>
                         <h2 class="text-3xl font-bold mb-4 text-gray-900">Dr. Garth Dalwin Hutton</h2>
                         <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-blue-dark">
-                            <img src="./images/tribute_slideshow/133.jpg" alt="Dr. Garth Dalwin Hutton" class="w-full h-full object-cover">
+                            <img src="./images/prayer_card/card_thumb.jpg" alt="Dr. Garth Dalwin Hutton" class="w-full h-full object-cover" loading="lazy">
                         </div>
                         <div class="border-t border-gray-200 w-16 mx-auto mb-6"></div>
                         <p class="text-lg mb-4">Sunrise: August 9, 1961</p>
@@ -168,41 +159,45 @@
                 </div>
             </div>
             <div class="text-center mt-12">
-                <div class="mb-6">
-                    <p class="text-gray-700 max-w-2xl mx-auto">This digital prayer card is available for download in high resolution for family members to print or keep as a digital keepsake.</p>
-                </div>
-                <div class="flex justify-center">
-                    <a href="#" id="downloadPrayerCard" class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition duration-300">
-                        <i data-feather="download" class="mr-2 w-4 h-4"></i> Download Prayer Card
-                    </a>
-                </div>
-                <div class="mt-8 text-sm text-gray-500">
-                    <p>For family members needing assistance with printing, please contact Odette at redreading318@gmail.com</p>
-                </div>
+                <p class="mb-6 text-gray-700 max-w-2xl mx-auto">This digital prayer card is available for download in high resolution for family members to print or keep as a digital keepsake.</p>
+                <a href="#" id="downloadPrayerCard" class="btn btn-primary">
+                    <i data-feather="download"></i> Download Prayer Card
+                </a>
             </div>
         </div>
     </section>
-    <!-- Memories Section -->
+
+    <!-- Memories -->
     <section id="memories" class="py-20 bg-blue-light">
         <div class="max-w-6xl mx-auto px-4" data-aos="fade-up">
             <h2 class="text-3xl font-bold text-center mb-12">Lifetime Memories</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="bg-white p-8 rounded-lg shadow-lg text-center">
                     <h3 class="text-2xl font-bold mb-4 text-blue-dark">Memorial Magazine</h3>
-                    <img src="http://static.photos/document/640x360/10" alt="Memorial Gazette Preview" class="w-full rounded-lg mb-4">
-                    <p class="text-gray-700 mb-6">Download our digital memorial magazine commemorating Dr. Hutton's life and legacy.</p>
-                    <a href="#" class="inline-block bg-blue-dark text-white px-6 py-2 rounded hover:bg-blue-800 transition">Download Magazine</a>
+                    <!-- fixed-height media slot -->
+                    <div class="media-slot mb-4">
+                      <img src="./files/memorial_magazine/pdf_thumb.png" alt="Memorial Gazette Preview" loading="lazy" decoding="async">
+                    </div>
+                    <p class="text-gray-700 mb-6 clamp-2">Download our digital memorial magazine commemorating Dr. Hutton's life and legacy.</p>
+                    <a href="#" id="downloadMagazine" class="btn btn-primary">
+                        <i data-feather="download"></i> Download Magazine
+                    </a>
                 </div>
+
                 <div class="bg-white p-8 rounded-lg shadow-lg text-center">
                     <h3 class="text-2xl font-bold mb-4 text-blue-dark">Photo Gallery</h3>
-                    <img src="http://static.photos/people/640x360/5" alt="Gallery Preview" class="w-full rounded-lg mb-4">
-                    <p class="text-gray-700 mb-6">Browse photos from the celebration of life events and memorial services.</p>
-                    <a href="./gallery.html" class="inline-block bg-blue-dark text-white px-6 py-2 rounded hover:bg-blue-800 transition">View Gallery</a>
+                    <!-- fixed-height media slot -->
+                    <div class="media-slot mb-4">
+                      <img src="./images/photo_gallery/2D8A6583.JPG" alt="Gallery Preview" loading="lazy" decoding="async">
+                    </div>
+                    <p class="text-gray-700 mb-6 clamp-2">Browse photos from the celebration of life events and memorial services.</p>
+                    <a href="./gallery.html" class="btn btn-outline">View Gallery</a>
                 </div>
             </div>
         </div>
     </section>
-<!-- Footer -->
+
+    <!-- Footer -->
     <footer class="bg-blue-dark text-white py-12">
         <div class="max-w-6xl mx-auto px-4">
             <div class="md:flex md:justify-between">
@@ -234,40 +229,58 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- Page Scripts -->
     <script>
-        AOS.init({ duration: 800, easing: 'ease-in-out', once: true });
-        feather.replace();
+      window.addEventListener('DOMContentLoaded', () => {
+        if (window.AOS) AOS.init({ duration: 800, easing: 'ease-in-out', once: true });
+        if (window.feather) feather.replace();
+      });
 
-        // Prayer Card download (kept; replace URLs when real assets are available)
-        const prayerCardFiles = [
-            { name: 'front.png', url: 'images/prayer_card/front.png' },
-            { name: 'back.png',  url: 'images/prayer_card/back.png'' }
-        ];
+      const prayerCardFiles = [
+        { name: 'prayer_card_front.png', url: './images/prayer_card/front.png' },
+        { name: 'prayer_card_back.png',  url: './images/prayer_card/back.png' }
+      ];
 
-        document.getElementById('downloadPrayerCard').addEventListener('click', async (e) => {
-            e.preventDefault();
-            try {
-                const zipLib = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
-                const saverLib = 'https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js';
-                if (!window.JSZip) await new Promise(r=>{ const s=document.createElement('script'); s.src=zipLib; s.onload=r; document.body.appendChild(s); });
-                if (!window.saveAs) await new Promise(r=>{ const s=document.createElement('script'); s.src=saverLib; s.onload=r; document.body.appendChild(s); });
+      document.getElementById('downloadPrayerCard')?.addEventListener('click', async (e) => {
+        e.preventDefault();
+        try {
+          const zipLib = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+          const saverLib = 'https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js';
+          if (!window.JSZip) await new Promise(r=>{ const s=document.createElement('script'); s.src=zipLib; s.onload=r; document.body.appendChild(s); });
+          if (!window.saveAs) await new Promise(r=>{ const s=document.createElement('script'); s.src=saverLib; s.onload=r; document.body.appendChild(s); });
 
-                const zip = new JSZip();
-                const folder = zip.folder("garth_hutton_prayer_card");
-                for (const file of prayerCardFiles) {
-                    const resp = await fetch(file.url);
-                    if (!resp.ok) throw new Error('Failed to fetch '+file.url);
-                    const blob = await resp.blob();
-                    folder.file(file.name, blob);
-                }
-                const content = await zip.generateAsync({ type: "blob" });
-                saveAs(content, "dr_garth_dalwin_hutton_prayer_card.zip");
-            } catch (err) {
-                console.error(err);
-                alert("There was an error preparing the prayer card download.");
-            }
-        });
+          const zip = new JSZip();
+          const folder = zip.folder("garth_hutton_prayer_card");
+          for (const file of prayerCardFiles) {
+            const resp = await fetch(file.url);
+            if (!resp.ok) throw new Error('Failed to fetch '+file.url);
+            folder.file(file.name, await resp.blob());
+          }
+          const content = await zip.generateAsync({ type: "blob" });
+          saveAs(content, "garth_hutton_prayer_card.zip");
+        } catch (err) {
+          console.error(err);
+          alert("There was an error preparing the prayer card download.");
+        }
+      });
+
+      document.getElementById('downloadMagazine')?.addEventListener('click', async (e) => {
+        e.preventDefault();
+        try {
+          const pdfUrl = './files/memorial_magazine/drgarthdhutton.pdf';
+          const resp = await fetch(pdfUrl, { cache: 'no-store' });
+          if (!resp.ok) throw new Error('Failed to fetch magazine');
+          const blob = await resp.blob();
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url; a.download = 'drgarthdhutton_memorial_magazine.pdf';
+          document.body.appendChild(a); a.click();
+          URL.revokeObjectURL(url); a.remove();
+        } catch (err) {
+          console.error(err);
+          alert("There was an error downloading the magazine. Please try again later.");
+        }
+      });
     </script>
 </body>
 </html>

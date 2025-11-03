@@ -3,7 +3,8 @@ import path from "node:path";
 import fg from "fast-glob";
 import sharp from "sharp";
 
-const IMAGES_DIR = "images";
+// 🔒 Limit indexing to photo_gallery only
+const IMAGES_DIR = "images/photo_gallery";
 const OUT_DIR = "data";
 const OUT_FILE = path.join(OUT_DIR, "images.json");
 
@@ -46,6 +47,7 @@ async function getMetadata(file) {
 }
 
 async function main() {
+  // Only crawl photo_gallery subtree
   const pattern = `${IMAGES_DIR}/**/*.{${exts.join(",")}}`;
   const files = await fg(pattern, {
     dot: false,
@@ -71,7 +73,7 @@ async function main() {
     const stat = await fs.stat(file);
     const rel = path.relative(".", file);
     entries.push({
-      src: toSrc(rel),
+      src: toSrc(rel),                 // e.g. ./images/photo_gallery/IMG_1234.jpg
       w: meta.width,
       h: meta.height,
       alt: titleFromFilename(file),
@@ -82,18 +84,17 @@ async function main() {
     });
   }
 
-  // Sort for stable diffs
+  // Stable sort for deterministic diffs
   entries.sort((a, b) => a.src.localeCompare(b.src));
 
   await fs.mkdir(OUT_DIR, { recursive: true });
   await fs.writeFile(OUT_FILE, JSON.stringify(entries, null, 2) + "\n", "utf8");
 
-  // Visibility for auditing coverage
   console.log(`Scanned files: ${files.length}`);
   console.log(`Indexed images: ${entries.length}`);
   const missing = files.length - entries.length;
   if (missing > 0) {
-    console.warn(`Skipped ${missing} files due to unreadable metadata. See logs above for details.`);
+    console.warn(`Skipped ${missing} file(s) due to unreadable metadata. See logs above for details.`);
   }
 }
 

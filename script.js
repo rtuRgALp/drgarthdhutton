@@ -1,15 +1,16 @@
+// Gallery Module (gallery.html only)
 class Gallery {
   constructor() {
     this.images = [];
     this.filteredImages = [];
     this.currentPage = 1;
     this.perPage = 12;
-    this.searchTerm = '';
   }
 
   async boot() {
     const root = document.getElementById('gallery-root');
     if (!root) return;
+
     this.q = sel => document.querySelector(sel);
     this.els = {
       grid: this.q('#gh-gallery-grid'),
@@ -18,20 +19,19 @@ class Gallery {
       error: this.q('#gh-error'),
       retry: this.q('#gh-retry')
     };
+
     this.bindEvents();
     await this.loadImages();
     this.render();
   }
 
   bindEvents() {
-    if (this.els.retry) {
-this.els.retry.addEventListener('click', async () => {
-        this.els.error.classList.add('hidden');
-        this.els.loading.classList.remove('hidden');
-        await this.loadImages();
-        this.render();
-      });
-    }
+    this.els.retry?.addEventListener('click', async () => {
+      this.els.error.classList.add('hidden');
+      this.els.loading.classList.remove('hidden');
+      await this.loadImages();
+      this.render();
+    });
     window.addEventListener('hashchange', () => this.syncFromHash());
     window.addEventListener('popstate', () => this.render());
   }
@@ -50,13 +50,12 @@ this.els.retry.addEventListener('click', async () => {
       this.els.error.classList.remove('hidden');
     }
   }
-render() {
+
+  render() {
     if (!this.els.grid) return;
     const total = this.filteredImages.length;
     const totalPages = Math.max(1, Math.ceil(total / this.perPage));
     this.currentPage = Math.min(Math.max(1, this.currentPage), totalPages);
-    const start = (this.currentPage - 1) * this.perPage;
-    const pageItems = this.filteredImages.slice(start, start + this.perPage);
 
     if (total === 0) {
       this.els.grid.innerHTML = `
@@ -69,10 +68,12 @@ render() {
       return;
     }
 
-    this.els.grid.innerHTML = pageItems.map((im, idx) => {
+    const start = (this.currentPage - 1) * this.perPage;
+    const pageItems = this.filteredImages.slice(start, start + this.perPage);
+
+    this.els.grid.innerHTML = pageItems.map(im => {
       const cap = im.title || 'Memory';
       const alt = im.alt || 'Memory image';
-      // data-lg* attributes let LightGallery pick up metadata
       return `
         <div class="gh-gallery-card">
           <a href="${im.src}" class="gh-gallery-image" data-sub-html="<h4>${this.escape(cap)}</h4>">
@@ -88,7 +89,7 @@ render() {
     this.renderPager(totalPages);
     this.initLightGallery();
     feather.replace();
-    this.syncFromHash(); // open deep link if present
+    this.syncFromHash();
   }
 
   renderPager(totalPages) {
@@ -96,17 +97,28 @@ render() {
     const cur = this.currentPage;
     const btn = (p, label, dis=false, active=false) =>
       `<button class="gh-gallery-page-btn ${active ? 'active':''}" ${dis?'disabled':''} data-page="${p}">${label}</button>`;
+
     let html = '';
     html += btn(Math.max(1, cur-1), '«', cur===1);
+
     const windowSize = 5;
     let start = Math.max(1, cur - Math.floor(windowSize/2));
     let end = Math.min(totalPages, start + windowSize - 1);
     if (end - start + 1 < windowSize) start = Math.max(1, end - windowSize + 1);
-    if (start > 1) { html += btn(1, '1'); if (start > 2) html += `<span class="px-2">…</span>`; }
+
+    if (start > 1) {
+      html += btn(1, '1');
+      if (start > 2) html += `<span class="px-2">…</span>`;
+    }
     for (let i=start;i<=end;i++) html += btn(i, String(i), false, i===cur);
-    if (end < totalPages) { if (end < totalPages-1) html += `<span class="px-2">…</span>`; html += btn(totalPages, String(totalPages)); }
+    if (end < totalPages) {
+      if (end < totalPages-1) html += `<span class="px-2">…</span>`;
+      html += btn(totalPages, String(totalPages));
+    }
+
     html += btn(Math.min(totalPages, cur+1), '»', cur===totalPages);
     this.els.pager.innerHTML = html;
+
     this.els.pager.querySelectorAll('button[data-page]').forEach(b=>{
       b.addEventListener('click', () => { this.currentPage = Number(b.dataset.page); this.render(); });
     });
@@ -139,13 +151,12 @@ render() {
     }
   }
 
-  debounce(fn, ms) { let t; return (...args) => { clearTimeout(t); t=setTimeout(()=>fn(...args), ms); }; }
   escape(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Gallery();
   app.boot();
-  window.gallery = app; // optional for debugging
+  window.gallery = app; // debug hook
 });
 
