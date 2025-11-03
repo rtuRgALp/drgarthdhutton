@@ -17,10 +17,14 @@ jobs:
   build-manifest:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout with LFS
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          lfs: true
+
+      - name: Pull LFS objects (safety)
+        run: git lfs pull
 
       - name: Setup Node
         uses: actions/setup-node@v4
