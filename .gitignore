@@ -1,0 +1,15 @@
+# Node modules
+node_modules/
+
+# Generated/optimized images (created by optimize-images.mjs)
+# These will be committed to the repo for GitHub Pages deployment
+# but excluded from local .gitignore to avoid accidents
+# (We'll commit them explicitly via the workflow)
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor directories
+.vscode/
+.idea/

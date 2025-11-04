@@ -5,6 +5,7 @@ import sharp from "sharp";
 
 // 🔒 Limit indexing to photo_gallery only
 const IMAGES_DIR = "images/photo_gallery";
+const OPTIMIZED_DIR = "images/photo_gallery_web";
 const OUT_DIR = "data";
 const OUT_FILE = path.join(OUT_DIR, "images.json");
 
@@ -21,6 +22,19 @@ function titleFromFilename(file) {
 
 function toSrc(relPath) {
   return `./${relPath.replace(/\\/g, "/")}`;
+}
+
+/**
+ * Convert source path to optimized web path
+ */
+function toOptimizedSrc(sourceRelPath) {
+  const parsed = path.parse(sourceRelPath);
+  // Change directory from photo_gallery to photo_gallery_web
+  const optimizedDir = path.join(OPTIMIZED_DIR, parsed.dir.replace(IMAGES_DIR, ""));
+  // Change extension to .jpg (our optimization output format)
+  const optimizedName = parsed.name + ".jpg";
+  const optimizedPath = path.join(optimizedDir, optimizedName);
+  return `./${optimizedPath.replace(/\\/g, "/")}`;
 }
 
 async function getMetadata(file) {
@@ -72,8 +86,23 @@ async function main() {
     if (!meta) continue;
     const stat = await fs.stat(file);
     const rel = path.relative(".", file);
+    
+    // Check if optimized version exists
+    const optimizedSrc = toOptimizedSrc(rel);
+    const optimizedPath = optimizedSrc.slice(2); // Remove './'
+    let finalSrc = toSrc(rel); // Default to original
+    
+    try {
+      await fs.access(optimizedPath);
+      // Optimized version exists, use it
+      finalSrc = optimizedSrc;
+    } catch (e) {
+      // Optimized version doesn't exist, will use original
+      console.warn(`⚠️  No optimized version found for ${rel}, using original`);
+    }
+    
     entries.push({
-      src: toSrc(rel),                 // e.g. ./images/photo_gallery/IMG_1234.jpg
+      src: finalSrc,                   // Use optimized if available, otherwise original
       w: meta.width,
       h: meta.height,
       alt: titleFromFilename(file),

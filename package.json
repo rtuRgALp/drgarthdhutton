@@ -3,11 +3,18 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build:manifest": "node scripts/build-manifest.mjs"
+    "build:manifest": "node scripts/build-manifest.mjs",
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "dev": "npx http-server -p 8080 -c-1",
+    "start": "npm run dev",
+    "check:size": "bash scripts/check-size.sh"
   },
   "dependencies": {
     "fast-glob": "^3.3.2",
     "sharp": "^0.33.2"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
   }
 }
 
