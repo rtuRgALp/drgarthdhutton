@@ -58,9 +58,17 @@
                     <a href="#memories" class="text-blue-light hover:text-white transition">Memories</a>
                     <a href="./gallery.html" class="text-blue-light hover:text-white transition">Gallery</a>
                 </div>
-                <button class="md:hidden focus:outline-none" aria-label="Open Menu">
+                <button id="mobile-menu-button" class="md:hidden focus:outline-none" aria-label="Toggle Menu">
                     <i data-feather="menu"></i>
                 </button>
+            </div>
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <a href="#obituary" class="block py-2 text-blue-light hover:text-white transition">Obituary</a>
+                <a href="#services" class="block py-2 text-blue-light hover:text-white transition">Services</a>
+                <a href="#prayer" class="block py-2 text-blue-light hover:text-white transition">Prayer Card</a>
+                <a href="#memories" class="block py-2 text-blue-light hover:text-white transition">Memories</a>
+                <a href="./gallery.html" class="block py-2 text-blue-light hover:text-white transition">Gallery</a>
             </div>
         </div>
     </nav>
@@ -188,7 +196,7 @@
                     <h3 class="text-2xl font-bold mb-4 text-blue-dark">Photo Gallery</h3>
                     <!-- fixed-height media slot -->
                     <div class="media-slot mb-4">
-                      <img src="./images/photo_gallery/2D8A6583.JPG" alt="Gallery Preview" loading="lazy" decoding="async">
+                      <img src="./images/photo_gallery_web/2D8A6583.jpg" alt="Gallery Preview" loading="lazy" decoding="async">
                     </div>
                     <p class="text-gray-700 mb-6 clamp-2">Browse photos from the celebration of life events and memorial services.</p>
                     <a href="./gallery.html" class="btn btn-outline">View Gallery</a>
@@ -234,6 +242,23 @@
       window.addEventListener('DOMContentLoaded', () => {
         if (window.AOS) AOS.init({ duration: 800, easing: 'ease-in-out', once: true });
         if (window.feather) feather.replace();
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileMenuButton && mobileMenu) {
+          mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+          });
+          
+          // Close menu when clicking a link
+          mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+              mobileMenu.classList.add('hidden');
+            });
+          });
+        }
       });
 
       const prayerCardFiles = [
