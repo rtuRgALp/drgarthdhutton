@@ -31,13 +31,57 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          lfs: false  # Don't pull LFS files - we only need optimized versions
+          
+      - name: Prepare deployment directory
+        run: |
+          # Create a clean deployment directory
+          mkdir -p _deploy
+          
+          # Copy root files
+          cp *.html *.css *.js _deploy/
+          
+          # Copy data directory
+          if [ -d "data" ]; then
+            cp -r data _deploy/
+          fi
+          
+          # Copy files directory
+          if [ -d "files" ]; then
+            cp -r files _deploy/
+          fi
+          
+          # Copy only optimized images (exclude originals)
+          mkdir -p _deploy/images
+          if [ -d "images/photo_gallery_web" ]; then
+            cp -r images/photo_gallery_web _deploy/images/
+          fi
+          if [ -d "images/tribute_slideshow_web" ]; then
+            cp -r images/tribute_slideshow_web _deploy/images/
+          fi
+          if [ -d "images/prayer_card" ]; then
+            cp -r images/prayer_card _deploy/images/
+          fi
+          
+          # Show deployment size
+          echo "📦 Deployment package contents:"
+          ls -lh _deploy/
+          echo ""
+          echo "📦 Deployment size:"
+          du -sh _deploy
+          echo ""
+          echo "📸 Image directories:"
+          du -sh _deploy/images/*
+          
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: '.'
+          path: '_deploy'
+          
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
