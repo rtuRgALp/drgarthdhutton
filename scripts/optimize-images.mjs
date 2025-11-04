@@ -54,8 +54,9 @@ async function isOptimized(sourceFile, optimizedFile) {
       fs.stat(sourceFile),
       fs.stat(optimizedFile)
     ]);
-    // Return true if optimized file is newer than source
-    return optimizedStat.mtime >= sourceStat.mtime;
+    // Return true only if optimized file is strictly newer than source
+    // This ensures files with identical timestamps get re-optimized
+    return optimizedStat.mtime > sourceStat.mtime;
   } catch (e) {
     // If optimized file doesn't exist, it's not optimized
     return false;
