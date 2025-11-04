@@ -115,6 +115,19 @@
 }
 
 /* ===========================
+   ANIMATIONS & TRANSITIONS
+   =========================== */
+/* Prevent AOS flash - hide elements until AOS initializes */
+[data-aos] {
+  opacity: 0;
+  transition-property: opacity;
+}
+
+[data-aos].aos-animate {
+  opacity: 1;
+}
+
+/* ===========================
    ACCESSIBILITY UTILITIES
    =========================== */
 /* Screen reader only - visually hidden but accessible to assistive tech */
