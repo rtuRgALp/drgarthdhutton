@@ -327,7 +327,6 @@
 /* Navigation */
 .dark-mode nav {
   background-color: var(--bg-secondary);
-  border-bottom: 1px solid var(--border-subtle);
 }
 
 .dark-mode nav a {
@@ -341,7 +340,6 @@
 /* Footer */
 .dark-mode footer {
   background-color: var(--bg-secondary);
-  border-top: 1px solid var(--border-subtle);
 }
 
 .dark-mode footer p,
