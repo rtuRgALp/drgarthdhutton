@@ -111,10 +111,6 @@ class Gallery {
           <a href="${im.src}" class="gh-gallery-image" data-sub-html="<h4>${this.escape(cap)}</h4>">
             <img src="${im.src}" alt="${this.escape(alt)}" class="gh-gallery-img" loading="lazy" decoding="async">
           </a>
-          <div class="gh-gallery-caption">
-            <h3 class="gh-gallery-title">${this.escape(cap)}</h3>
-            ${im.date ? `<p class="gh-gallery-date">${this.escape(im.date)}</p>` : ''}
-          </div>
         </div>`;
     }).join('');
 
