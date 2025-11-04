@@ -4,11 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gallery | In Loving Memory of Dr. Garth Dalwin Hutton</title>
+  <meta name="description" content="Browse 446 photos celebrating the life of Dr. Garth Dalwin Hutton (1961-2025). A collection of memories spanning his remarkable journey." />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rtuRgALp.github.io/drgarthdhutton/gallery.html" />
+  <meta property="og:title" content="Photo Gallery | In Loving Memory of Dr. Garth Dalwin Hutton" />
+  <meta property="og:description" content="Browse 446 photos celebrating the life of Dr. Garth Dalwin Hutton (1961-2025). A collection of memories spanning his remarkable journey." />
+  <meta property="og:image" content="https://rtuRgALp.github.io/drgarthdhutton/images/photo_gallery_web/001.jpg" />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://rtuRgALp.github.io/drgarthdhutton/gallery.html" />
+  <meta property="twitter:title" content="Photo Gallery | In Loving Memory of Dr. Garth Dalwin Hutton" />
+  <meta property="twitter:description" content="Browse 446 photos celebrating the life of Dr. Garth Dalwin Hutton (1961-2025). A collection of memories spanning his remarkable journey." />
+  <meta property="twitter:image" content="https://rtuRgALp.github.io/drgarthdhutton/images/photo_gallery_web/001.jpg" />
   
   <!-- Preconnect to CDNs for performance -->
   <link rel="preconnect" href="https://cdn.tailwindcss.com">
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  
+  <!-- Preload gallery data for faster rendering -->
+  <link rel="preload" as="fetch" href="./data/images.json" crossorigin>
   
   <!-- Favicons -->
   <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
@@ -26,6 +44,7 @@
   
   <!-- Scripts -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./theme-manager.js" defer></script>
   <style>.gh-gallery-overlay { background: rgba(4,45,98,.9); }</style>
 </head>
 <body class="font-sans bg-gray-50">
@@ -155,77 +174,6 @@
           });
         });
       }
-
-      // Theme Manager
-      class ThemeManager {
-        constructor() {
-          this.toggle = document.getElementById('theme-toggle');
-          this.icon = this.toggle?.querySelector('.theme-toggle-icon');
-          this.storageKey = 'gh-theme-preference';
-          
-          this.init();
-        }
-
-        init() {
-          // Check for saved preference, otherwise use system preference
-          const savedTheme = localStorage.getItem(this.storageKey);
-          const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-          
-          this.setTheme(initialTheme, false);
-          
-          // Listen to toggle clicks
-          this.toggle?.addEventListener('click', () => this.toggleTheme());
-          
-          // Listen to system preference changes
-          window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-            if (!localStorage.getItem(this.storageKey)) {
-              this.setTheme(e.matches ? 'dark' : 'light', false);
-            }
-          });
-          
-          // Keyboard support
-          this.toggle?.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              this.toggleTheme();
-            }
-          });
-        }
-
-        setTheme(theme, save = true) {
-          const isDark = theme === 'dark';
-          
-          document.documentElement.classList.toggle('dark-mode', isDark);
-          this.toggle?.setAttribute('aria-checked', isDark.toString());
-          
-          // Update icon
-          if (this.icon) {
-            this.icon.setAttribute('data-feather', isDark ? 'moon' : 'sun');
-            if (window.feather) feather.replace();
-          }
-          
-          // Announce theme change to screen readers
-          const announcement = document.getElementById('theme-announcement');
-          if (announcement) {
-            announcement.textContent = `${isDark ? 'Dark' : 'Light'} mode activated`;
-          }
-          
-          // Save preference
-          if (save) {
-            localStorage.setItem(this.storageKey, theme);
-          }
-        }
-
-        toggleTheme() {
-          const currentTheme = document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light';
-          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-          this.setTheme(newTheme);
-        }
-      }
-
-      // Initialize theme manager
-      new ThemeManager();
     });
   </script>
 </body>

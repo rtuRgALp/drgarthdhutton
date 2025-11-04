@@ -2,8 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>In Loving Memory of Dr. Garth Dalwin Hutton</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>In Loving Memory of Dr. Garth Dalwin Hutton | 1961-2025</title>
+    <meta name="description" content="Celebrating the life and legacy of Dr. Garth Dalwin Hutton (1961-2025). View photo gallery, funeral details, and memorial resources." />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://rtuRgALp.github.io/drgarthdhutton/" />
+    <meta property="og:title" content="In Loving Memory of Dr. Garth Dalwin Hutton | 1961-2025" />
+    <meta property="og:description" content="Celebrating the life and legacy of Dr. Garth Dalwin Hutton (1961-2025). View photo gallery, funeral details, and memorial resources." />
+    <meta property="og:image" content="https://rtuRgALp.github.io/drgarthdhutton/images/tribute_slideshow_web/001.jpg" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://rtuRgALp.github.io/drgarthdhutton/" />
+    <meta property="twitter:title" content="In Loving Memory of Dr. Garth Dalwin Hutton | 1961-2025" />
+    <meta property="twitter:description" content="Celebrating the life and legacy of Dr. Garth Dalwin Hutton (1961-2025). View photo gallery, funeral details, and memorial resources." />
+    <meta property="twitter:image" content="https://rtuRgALp.github.io/drgarthdhutton/images/tribute_slideshow_web/001.jpg" />
     
     <!-- Preconnect to CDNs for performance -->
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
@@ -19,12 +34,11 @@
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="./style.css" />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     
     <!-- Scripts -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js" defer></script>
+    <script src="./theme-manager.js" defer></script>
 </head>
 <body class="font-sans bg-gray-50">
     <!-- Skip to main content link for accessibility -->
@@ -258,7 +272,24 @@
     <!-- Page Scripts -->
     <script>
       window.addEventListener('DOMContentLoaded', () => {
-        if (window.AOS) AOS.init({ duration: 800, easing: 'ease-in-out', once: true });
+        // Lazy load AOS for better initial performance
+        const loadAOS = () => {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = 'https://unpkg.com/aos@2.3.1/dist/aos.css';
+          document.head.appendChild(link);
+          
+          const script = document.createElement('script');
+          script.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
+          script.onload = () => {
+            if (window.AOS) AOS.init({ duration: 800, easing: 'ease-in-out', once: true });
+          };
+          document.body.appendChild(script);
+        };
+        
+        // Load AOS after a short delay to prioritize critical content
+        setTimeout(loadAOS, 100);
+        
         if (window.feather) feather.replace();
         
         // Mobile menu toggle
@@ -324,77 +355,6 @@
           alert("There was an error downloading the magazine. Please try again later.");
         }
       });
-
-      // Theme Manager
-      class ThemeManager {
-        constructor() {
-          this.toggle = document.getElementById('theme-toggle');
-          this.icon = this.toggle?.querySelector('.theme-toggle-icon');
-          this.storageKey = 'gh-theme-preference';
-          
-          this.init();
-        }
-
-        init() {
-          // Check for saved preference, otherwise use system preference
-          const savedTheme = localStorage.getItem(this.storageKey);
-          const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-          
-          this.setTheme(initialTheme, false);
-          
-          // Listen to toggle clicks
-          this.toggle?.addEventListener('click', () => this.toggleTheme());
-          
-          // Listen to system preference changes
-          window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-            if (!localStorage.getItem(this.storageKey)) {
-              this.setTheme(e.matches ? 'dark' : 'light', false);
-            }
-          });
-          
-          // Keyboard support
-          this.toggle?.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              this.toggleTheme();
-            }
-          });
-        }
-
-        setTheme(theme, save = true) {
-          const isDark = theme === 'dark';
-          
-          document.documentElement.classList.toggle('dark-mode', isDark);
-          this.toggle?.setAttribute('aria-checked', isDark.toString());
-          
-          // Update icon
-          if (this.icon) {
-            this.icon.setAttribute('data-feather', isDark ? 'moon' : 'sun');
-            if (window.feather) feather.replace();
-          }
-          
-          // Announce theme change to screen readers
-          const announcement = document.getElementById('theme-announcement');
-          if (announcement) {
-            announcement.textContent = `${isDark ? 'Dark' : 'Light'} mode activated`;
-          }
-          
-          // Save preference
-          if (save) {
-            localStorage.setItem(this.storageKey, theme);
-          }
-        }
-
-        toggleTheme() {
-          const currentTheme = document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light';
-          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-          this.setTheme(newTheme);
-        }
-      }
-
-      // Initialize theme manager
-      new ThemeManager();
     </script>
 </body>
 </html>
