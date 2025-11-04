@@ -63,6 +63,9 @@ jobs:
           if [ -d "images/prayer_card" ]; then
             cp -r images/prayer_card _deploy/images/
           fi
+          if [ -d "static" ]; then
+            cp -r static _deploy/
+          fi
           
           # Show deployment size
           echo "📦 Deployment package contents:"

@@ -5,6 +5,7 @@
   "scripts": {
     "build:manifest": "node scripts/build-manifest.mjs",
     "optimize:images": "node scripts/optimize-images.mjs",
+    "generate:favicon": "node scripts/generate-favicon.mjs",
     "dev": "npx http-server -p 8080 -c-1",
     "start": "npm run dev",
     "check:size": "bash scripts/check-size.sh"
