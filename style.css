@@ -1,13 +1,61 @@
 /* =========================
    THEME TOKENS
    ========================= */
+/* ===========================
+   CSS Variables for Theming
+   =========================== */
 :root {
+  /* Brand Colors */
   --gh-blue-dark: #042d62;
   --gh-blue-dark-hover: #05418a;
   --gh-blue-light: #bfe4f9;
+  --gh-blue-light-hover: #a8d9f5;
+  
+  /* Light Mode Colors */
+  --bg-primary: #fafafa;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #bfe4f9;
+  --text-primary: #111827;
+  --text-secondary: #374151;
+  --text-muted: #9ca3af;
+  --text-on-dark: #ffffff;
+  --border-subtle: #e5e7eb;
+  --shadow-color: rgba(4, 45, 98, 0.1);
+  --shadow-color-md: rgba(4, 45, 98, 0.15);
+  --shadow-color-lg: rgba(4, 45, 98, 0.2);
+  
+  /* Legacy Variables */
   --gh-text-on-dark: #ffffff;
-  --gh-text-on-light: #042d62;
-  --gh-focus: #bfe4f9;
+  --gh-shadow: rgba(4, 45, 98, 0.1);
+  --gh-shadow-md: rgba(4, 45, 98, 0.15);
+  --gh-shadow-lg: rgba(4, 45, 98, 0.2);
+}
+
+.dark-mode {
+  /* Dark Mode Colors - Warm Evening Palette */
+  --bg-primary: #1c1815;
+  --bg-secondary: #2a2622;
+  --bg-tertiary: #3d3832;
+  --text-primary: #f5f1e8;
+  --text-secondary: #d4cfc3;
+  --text-muted: #9a938a;
+  --text-on-dark: #f5f1e8;
+  --border-subtle: #4a4540;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-color-md: rgba(0, 0, 0, 0.4);
+  --shadow-color-lg: rgba(0, 0, 0, 0.5);
+  
+  /* Adjusted Brand Colors for Dark Mode */
+  --gh-blue-dark: #7aa5c9;
+  --gh-blue-dark-hover: #92b6d5;
+  --gh-blue-light: #3d3832;
+  --gh-blue-light-hover: #4a4540;
+  
+  /* Legacy Variables for Dark Mode */
+  --gh-text-on-dark: #f5f1e8;
+  --gh-shadow: rgba(0, 0, 0, 0.3);
+  --gh-shadow-md: rgba(0, 0, 0, 0.4);
+  --gh-shadow-lg: rgba(0, 0, 0, 0.5);
 }
 
 /* Shared theme utilities */
@@ -104,6 +152,7 @@
 .clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -112,7 +161,6 @@
    GALLERY STYLES
    ========================= */
 .gh-gallery-container { background: linear-gradient(to bottom, #bfe4f9, #ffffff); min-height: 100vh; }
-.gh-gallery-grid { /* optional hook for media query */ }
 .gh-gallery-card { transition: all 0.3s ease; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(4,45,98,.1); }
 .gh-gallery-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(4,45,98,.2); }
 .gh-gallery-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; background: #f7fafc; }
@@ -150,5 +198,300 @@
 
 /* Responsive */
 @media (max-width: 640px) { .gh-gallery-grid { grid-template-columns: 1fr; } }
+
+/* ===========================
+   DARK MODE OVERRIDES
+   =========================== */
+
+/* Base Elements */
+.dark-mode body {
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+}
+
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode h4,
+.dark-mode h5,
+.dark-mode h6 {
+  color: var(--text-primary);
+}
+
+/* Navigation */
+.dark-mode nav {
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.dark-mode nav a {
+  color: var(--text-primary);
+}
+
+.dark-mode nav a:hover {
+  color: var(--gh-blue-dark);
+}
+
+/* Footer */
+.dark-mode footer {
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.dark-mode footer p,
+.dark-mode footer a {
+  color: var(--text-secondary);
+}
+
+.dark-mode footer a:hover {
+  color: var(--gh-blue-dark);
+}
+
+/* ===========================
+   PRAYER CARD STYLES
+   =========================== */
+.prayer-card {
+  background: var(--bg-secondary);
+  box-shadow: 0 10px 30px var(--shadow-color-lg);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.prayer-card-content {
+  position: relative;
+  z-index: 1;
+}
+
+.prayer-card-back {
+  overflow-y: auto;
+  max-height: 600px;
+}
+
+.prayer-card-poem {
+  height: 400px;
+  overflow-y: auto;
+}
+
+/* Dark Mode Prayer Card */
+.dark-mode .prayer-card {
+  background: var(--bg-secondary);
+  box-shadow: 0 10px 30px var(--shadow-color-lg);
+}
+
+.dark-mode .prayer-card-content {
+  color: var(--text-secondary);
+}
+
+.dark-mode .prayer-card-content h2,
+.dark-mode .prayer-card-content h3,
+.dark-mode .prayer-card-content h4,
+.dark-mode .prayer-card-content strong {
+  color: var(--text-primary);
+}
+
+/* Buttons */
+.dark-mode .btn-primary {
+  background-color: var(--gh-blue-dark);
+  border-color: var(--gh-blue-dark);
+  color: var(--bg-primary);
+}
+
+.dark-mode .btn-primary:hover {
+  background-color: var(--gh-blue-dark-hover);
+  border-color: var(--gh-blue-dark-hover);
+  box-shadow: 0 6px 16px var(--shadow-color-md);
+}
+
+.dark-mode .btn-outline {
+  background-color: transparent;
+  border-color: var(--gh-blue-dark);
+  color: var(--gh-blue-dark);
+}
+
+.dark-mode .btn-outline:hover {
+  background-color: var(--gh-blue-dark);
+  color: var(--bg-primary);
+}
+
+/* Cards and Sections */
+.dark-mode .bg-white {
+  background-color: var(--bg-secondary) !important;
+}
+
+.dark-mode .bg-gray-50 {
+  background-color: var(--bg-primary) !important;
+}
+
+.dark-mode .bg-blue-light {
+  background-color: var(--bg-tertiary) !important;
+}
+
+/* Text Colors */
+.dark-mode .text-gray-700 {
+  color: var(--text-secondary) !important;
+}
+
+.dark-mode .text-gray-800 {
+  color: var(--text-primary) !important;
+}
+
+.dark-mode .text-gray-900 {
+  color: var(--text-primary) !important;
+}
+
+.dark-mode .text-gray-400 {
+  color: var(--text-muted) !important;
+}
+
+/* Gallery */
+.dark-mode .gh-gallery-container {
+  background: linear-gradient(to bottom, var(--bg-tertiary), var(--bg-primary));
+}
+
+.dark-mode .gh-gallery-card {
+  background: var(--bg-secondary);
+  box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+.dark-mode .gh-gallery-card:hover {
+  box-shadow: 0 10px 25px var(--shadow-color-lg);
+}
+
+.dark-mode .gh-gallery-img {
+  background: var(--bg-tertiary);
+  filter: brightness(0.95) sepia(0.05);
+}
+
+.dark-mode .gh-gallery-caption {
+  color: var(--text-secondary);
+}
+
+.dark-mode .gh-gallery-date {
+  color: var(--text-muted);
+}
+
+/* Hero Section */
+.dark-mode .hero-overlay {
+  background: linear-gradient(
+    to right,
+    rgba(28, 24, 21, 0.85) 0%,
+    rgba(28, 24, 21, 0.6) 50%,
+    rgba(28, 24, 21, 0.4) 100%
+  ) !important;
+}
+
+/* Images - Subtle sepia warmth */
+.dark-mode img:not(.gh-gallery-img) {
+  filter: brightness(0.9) sepia(0.08);
+}
+
+/* Borders and Dividers */
+.dark-mode .border-gray-200 {
+  border-color: var(--border-subtle) !important;
+}
+
+.dark-mode .border-gray-300 {
+  border-color: var(--border-subtle) !important;
+}
+
+/* Shadows */
+.dark-mode .shadow {
+  box-shadow: 0 1px 3px var(--shadow-color), 0 1px 2px var(--shadow-color);
+}
+
+.dark-mode .shadow-md {
+  box-shadow: 0 4px 6px var(--shadow-color-md);
+}
+
+.dark-mode .shadow-lg {
+  box-shadow: 0 10px 15px var(--shadow-color-lg);
+}
+
+/* LightGallery Dark Mode */
+.dark-mode .lg-outer .lg-thumb-item.active,
+.dark-mode .lg-outer .lg-thumb-item:hover {
+  border-color: var(--gh-blue-dark);
+}
+
+.dark-mode .lg-backdrop {
+  background-color: rgba(28, 24, 21, 0.95);
+}
+
+.dark-mode .lg-toolbar,
+.dark-mode .lg-actions .lg-next,
+.dark-mode .lg-actions .lg-prev {
+  background-color: rgba(42, 38, 34, 0.9);
+}
+
+/* ===========================
+   THEME TOGGLE BUTTON
+   =========================== */
+.theme-toggle-label {
+  color: inherit;
+}
+
+.dark-mode .theme-toggle-label {
+  color: var(--text-secondary);
+}
+
+.theme-toggle {
+  position: relative;
+  width: 60px;
+  height: 30px;
+  background-color: var(--bg-tertiary);
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+}
+
+.theme-toggle:focus {
+  outline: none;
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--gh-blue-dark);
+  outline-offset: 2px;
+}
+
+.theme-toggle-slider {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background-color: var(--gh-blue-dark);
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px var(--shadow-color);
+  left: 4px;
+}
+
+.dark-mode .theme-toggle {
+  background-color: var(--bg-tertiary);
+}
+
+.dark-mode .theme-toggle-slider {
+  transform: translateX(30px);
+  background-color: var(--gh-blue-dark);
+}
+
+.theme-toggle-icon {
+  width: 14px;
+  height: 14px;
+  color: var(--text-on-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle,
+  .theme-toggle-slider {
+    transition: none;
+  }
+}
 
 

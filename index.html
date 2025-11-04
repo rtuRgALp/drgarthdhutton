@@ -23,12 +23,6 @@
             background-blend-mode: multiply;
         }
         .section-divider { height: 100px; background: linear-gradient(to bottom, #bfe4f9, #8acff2); }
-        .prayer-card {
-            background: #ffffff; box-shadow: 0 10px 30px rgba(4, 45, 98, 0.1);
-            border-radius: 8px; position: relative; overflow: hidden; border: 1px solid #bfe4f9;
-        }
-        .prayer-card::before { content: ''; position: absolute; inset: 0; background: rgba(255, 255, 255, 0.95); }
-        .prayer-card-content { position: relative; z-index: 1; }
         .youtube-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
         .youtube-container iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     </style>
@@ -154,11 +148,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="prayer-card p-8 text-center" data-aos="fade-left" style="overflow-y: auto; max-height: 600px;">
+                <div class="prayer-card prayer-card-back p-8 text-center" data-aos="fade-left">
                     <div class="prayer-card-content">
                         <h2 class="text-3xl font-bold mb-4 text-gray-900">Always with a smile</h2>
                         <div class="border-t border-gray-200 w-16 mx-auto mb-6"></div>
-                        <div class="text-lg italic" style="height: 400px; overflow-y: auto;">
+                        <div class="prayer-card-poem text-lg italic">
                             <p class="mb-4">Now I'm with the angels, I've found eternal rest;<br>No more burdens to carry, I'm at peace and truly blessed.</p>
                             <p class="mb-4">I worked with love and purpose, I gave with all my heart;<br>But God had called me homeward, it was time for me to part.</p>
                             <p class="mb-4">I loved you all so dearly, my family, my pride, my song;<br>It was hard to leave you behind, but the Lord said, "Come along."</p>
@@ -236,6 +230,21 @@
                 </div>
             </div>
             <div class="border-t border-blue-light mt-8 pt-8 text-center text-blue-light">
+                <div class="flex justify-center items-center gap-4 mb-4">
+                    <span class="text-sm theme-toggle-label">Light</span>
+                    <button 
+                        id="theme-toggle" 
+                        class="theme-toggle" 
+                        aria-label="Toggle dark mode"
+                        role="switch"
+                        aria-checked="false"
+                    >
+                        <span class="theme-toggle-slider">
+                            <i data-feather="sun" class="theme-toggle-icon"></i>
+                        </span>
+                    </button>
+                    <span class="text-sm theme-toggle-label">Dark</span>
+                </div>
                 <p>© 2025 In Loving Memory of Dr. Garth Dalwin Hutton. All rights reserved.</p>
             </div>
         </div>
@@ -310,6 +319,71 @@
           alert("There was an error downloading the magazine. Please try again later.");
         }
       });
+
+      // Theme Manager
+      class ThemeManager {
+        constructor() {
+          this.toggle = document.getElementById('theme-toggle');
+          this.icon = this.toggle?.querySelector('.theme-toggle-icon');
+          this.storageKey = 'gh-theme-preference';
+          
+          this.init();
+        }
+
+        init() {
+          // Check for saved preference, otherwise use system preference
+          const savedTheme = localStorage.getItem(this.storageKey);
+          const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+          
+          this.setTheme(initialTheme, false);
+          
+          // Listen to toggle clicks
+          this.toggle?.addEventListener('click', () => this.toggleTheme());
+          
+          // Listen to system preference changes
+          window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem(this.storageKey)) {
+              this.setTheme(e.matches ? 'dark' : 'light', false);
+            }
+          });
+          
+          // Keyboard support
+          this.toggle?.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              this.toggleTheme();
+            }
+          });
+        }
+
+        setTheme(theme, save = true) {
+          const isDark = theme === 'dark';
+          
+          document.documentElement.classList.toggle('dark-mode', isDark);
+          this.toggle?.setAttribute('aria-checked', isDark.toString());
+          
+          // Update icon
+          if (this.icon) {
+            this.icon.setAttribute('data-feather', isDark ? 'moon' : 'sun');
+            if (window.feather) feather.replace();
+          }
+          
+          // Save preference
+          if (save) {
+            localStorage.setItem(this.storageKey, theme);
+          }
+        }
+
+        toggleTheme() {
+          const currentTheme = document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light';
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          this.setTheme(newTheme);
+        }
+      }
+
+      // Initialize theme manager
+      new ThemeManager();
     </script>
 </body>
 </html>
