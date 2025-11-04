@@ -10,14 +10,32 @@ const DIRS_TO_OPTIMIZE = [
     output: "images/photo_gallery_web",
     maxWidth: 1920,
     maxHeight: 1920,
-    quality: 85
+    quality: 85,
+    preserveFormat: false  // Convert to JPG
   },
   {
     source: "images/tribute_slideshow",
     output: "images/tribute_slideshow_web",
     maxWidth: 1920,
     maxHeight: 1920,
-    quality: 85
+    quality: 85,
+    preserveFormat: false  // Convert to JPG
+  },
+  {
+    source: "files/memorial_magazine",
+    output: "files/memorial_magazine",  // Optimize in place (thumbnails only)
+    maxWidth: 600,  // Thumbnails don't need to be huge
+    maxHeight: 800,
+    quality: 85,
+    preserveFormat: false  // Convert to JPG
+  },
+  {
+    source: "static",
+    output: "static",  // Optimize favicons in place
+    maxWidth: 512,  // Largest favicon size
+    maxHeight: 512,
+    quality: 90,  // High quality for crisp icons
+    preserveFormat: true  // Keep PNG format for transparency/browser support
   }
 ];
 
@@ -47,35 +65,49 @@ async function isOptimized(sourceFile, optimizedFile) {
 /**
  * Generate the optimized file path
  */
-function getOptimizedPath(sourceFile, sourceDir, outputDir) {
+function getOptimizedPath(sourceFile, sourceDir, outputDir, preserveFormat = false) {
   const rel = path.relative(sourceDir, sourceFile);
   const parsed = path.parse(rel);
-  // Change extension to .jpg for consistent output
-  const outputName = parsed.name + ".jpg";
+  // Preserve format if requested (for favicons/icons), otherwise convert to JPG
+  const outputName = preserveFormat ? parsed.base : parsed.name + ".jpg";
   return path.join(outputDir, parsed.dir, outputName);
 }
 
 /**
  * Optimize a single image
  */
-async function optimizeImage(sourceFile, optimizedFile, maxWidth, maxHeight, quality) {
+async function optimizeImage(sourceFile, optimizedFile, maxWidth, maxHeight, quality, preserveFormat = false) {
   try {
     // Ensure output directory exists
     await fs.mkdir(path.dirname(optimizedFile), { recursive: true });
 
+    // Determine output format
+    const isPng = preserveFormat && optimizedFile.toLowerCase().endsWith('.png');
+    
     // Process the image
-    await sharp(sourceFile)
+    let pipeline = sharp(sourceFile)
       .rotate() // Auto-rotate based on EXIF orientation
       .resize(maxWidth, maxHeight, {
         fit: "inside",
         withoutEnlargement: true
-      })
-      .jpeg({
+      });
+    
+    // Apply format-specific compression
+    if (isPng) {
+      pipeline = pipeline.png({
+        quality: quality,
+        compressionLevel: 9,
+        adaptiveFiltering: true
+      });
+    } else {
+      pipeline = pipeline.jpeg({
         quality: quality,
         progressive: true,
         mozjpeg: true
-      })
-      .toFile(optimizedFile);
+      });
+    }
+    
+    await pipeline.toFile(optimizedFile);
 
     return true;
   } catch (e) {
@@ -136,7 +168,7 @@ async function cleanupOrphans(sourceDir, outputDir) {
  * Process a single directory
  */
 async function processDirectory(config) {
-  const { source, output, maxWidth, maxHeight, quality } = config;
+  const { source, output, maxWidth, maxHeight, quality, preserveFormat = false } = config;
   
   console.log(`\n📁 Processing: ${source}`);
   console.log(`   Output: ${output}`);
@@ -172,7 +204,7 @@ async function processDirectory(config) {
   // Check which images need optimization
   const toOptimize = [];
   for (const sourceFile of sourceFiles) {
-    const optimizedFile = getOptimizedPath(sourceFile, source, output);
+    const optimizedFile = getOptimizedPath(sourceFile, source, output, preserveFormat);
     const alreadyOptimized = await isOptimized(sourceFile, optimizedFile);
     
     if (!alreadyOptimized) {
@@ -199,7 +231,7 @@ async function processDirectory(config) {
     
     process.stdout.write(`     [${i + 1}/${toOptimize.length}] ${relPath}...`);
     
-    const success = await optimizeImage(sourceFile, optimizedFile, maxWidth, maxHeight, quality);
+    const success = await optimizeImage(sourceFile, optimizedFile, maxWidth, maxHeight, quality, preserveFormat);
     
     if (success) {
       successful++;

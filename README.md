@@ -24,13 +24,15 @@ A responsive memorial website built with **HTML**, **TailwindCSS**, and **JavaSc
   - Lazy loading for performance
 
 ### Interactive Elements
+* **Dark Mode**: Warm "Evening Mode" theme with system preference detection and localStorage persistence
 * **Mobile Navigation**: Hamburger menu on both pages for mobile devices
-* **Scroll Animations**: AOS (Animate on Scroll) for smooth entrance effects
+* **Scroll Animations**: AOS (Animate on Scroll) lazy-loaded for smooth entrance effects
 * **Lightbox Gallery**: Full-screen photo viewing with gestures
 * **Downloadable Resources**: 
   - Prayer card (front & back) as ZIP
   - Memorial magazine PDF
 * **Icons**: Feather Icons throughout
+* **Accessibility**: Skip-to-content links, screen reader announcements, high contrast support
 
 ---
 
@@ -41,7 +43,7 @@ A responsive memorial website built with **HTML**, **TailwindCSS**, and **JavaSc
 * **Vanilla JavaScript** (ES6 modules)
 
 ### JavaScript Libraries
-* [AOS (Animate on Scroll)](https://michalsnik.github.io/aos/) - Scroll animations
+* [AOS (Animate on Scroll)](https://michalsnik.github.io/aos/) - Scroll animations (lazy-loaded)
 * [Feather Icons](https://feathericons.com/) - Icon system
 * [LightGallery](https://www.lightgalleryjs.com/) - Photo gallery with plugins:
   - Zoom
@@ -49,6 +51,10 @@ A responsive memorial website built with **HTML**, **TailwindCSS**, and **JavaSc
   - Fullscreen
 * [JSZip](https://stuk.github.io/jszip/) - Client-side ZIP creation
 * [FileSaver.js](https://github.com/eligrey/FileSaver.js/) - Download handling
+
+### Custom Modules
+* **theme-manager.js** - Dark/light mode switching with persistence
+* **script.js** - Infinite scroll gallery logic
 
 ### Build Tools
 * **Node.js** (v20+) for image optimization
@@ -100,6 +106,7 @@ npm start               # Start local dev server (port 8080)
 npm run dev             # Alias for start
 npm run optimize:images # Optimize all images for web
 npm run build:manifest  # Generate gallery manifest (data/images.json)
+npm run generate:favicon # Generate favicon set from source image
 npm run check:size      # Check deployment size
 ```
 
@@ -143,8 +150,9 @@ GitHub Actions automatically optimizes images on push:
 drgarthdhutton/
 ├── index.html                    # Main home page
 ├── gallery.html                  # Photo gallery page
-├── script.js                     # Gallery logic (ES6 module)
-├── style.css                     # Custom styles + theme variables
+├── script.js                     # Gallery logic (infinite scroll)
+├── theme-manager.js              # Dark/light mode controller
+├── style.css                     # Custom styles + CSS variables + dark mode
 ├── package.json                  # Dependencies & scripts
 ├── README.md                     # This file
 ├── SIZE_MANAGEMENT.md            # Size optimization guide
@@ -156,7 +164,8 @@ drgarthdhutton/
 ├── scripts/
 │   ├── optimize-images.mjs       # Image optimization tool
 │   ├── build-manifest.mjs        # Gallery manifest generator
-│   └── check-size.sh             # Deployment size checker
+│   ├── check-size.sh             # Deployment size checker
+│   └── generate-favicon.mjs      # Favicon generator
 │
 ├── data/
 │   └── images.json               # Gallery manifest (auto-generated)
@@ -167,6 +176,9 @@ drgarthdhutton/
 │   ├── tribute_slideshow/        # Original tribute images (Git LFS)
 │   ├── tribute_slideshow_web/    # Optimized tribute (committed)
 │   └── prayer_card/              # Prayer card images
+│
+├── static/
+│   └── *.png, *.ico, manifest    # Favicons and PWA manifest
 │
 └── files/
     └── memorial_magazine/        # PDF and thumbnails
@@ -201,16 +213,42 @@ Can also deploy to:
 
 ## 🎨 Customization
 
-### Theme Colors
+### Theme System
+The site features a sophisticated dark/light mode system with warm tones:
+
+**Light Mode** (Default):
+- Navy blue (#042d62) and cyan (#bfe4f9) accents
+- Clean white backgrounds
+- High contrast for readability
+
+**Dark Mode** ("Evening Mode"):
+- Warm brown backgrounds (#1c1815, #2a2622, #3d3832)
+- Cream text (#f5f1e8, #d4cfc3)
+- Dignified warm tones appropriate for memorial context
+
 Edit CSS variables in `style.css`:
 ```css
 :root {
+  /* Light mode */
+  --bg-primary: #ffffff;
+  --text-primary: #1f2937;
   --gh-blue-dark: #042d62;
   --gh-blue-light: #bfe4f9;
-  --gh-text-on-dark: #ffffff;
-  --gh-text-on-light: #042d62;
+}
+
+.dark-mode {
+  /* Dark mode */
+  --bg-primary: #1c1815;
+  --text-primary: #f5f1e8;
+  /* ... warm brown palette */
 }
 ```
+
+### Social Sharing
+Open Graph and Twitter Card metadata included for beautiful social previews:
+- Custom titles and descriptions per page
+- Featured images for sharing
+- Edit meta tags in `<head>` of each HTML file
 
 ### Adding Photos
 1. Add high-res photos to `images/photo_gallery/`
@@ -231,11 +269,28 @@ Edit CSS variables in `style.css`:
 
 ### Optimizations
 - ✅ Image optimization (95%+ reduction)
-- ✅ Lazy loading for images
+- ✅ Lazy loading for images and animations
 - ✅ Progressive JPEG encoding
-- ✅ CSS/JS via CDN (cached)
-- ✅ Pagination (12 photos/page)
+- ✅ CDN preconnect hints for faster resource loading
+- ✅ Resource preloading (gallery JSON data)
+- ✅ Infinite scroll gallery (12 photos per batch)
+- ✅ Modular JavaScript (theme-manager.js separated)
+- ✅ Deferred script loading
 - ✅ Mobile-first responsive design
+- ✅ Semantic HTML and accessibility features
+
+### Accessibility (WCAG AAA)
+- ✅ Skip-to-content links
+- ✅ Screen reader announcements (theme changes)
+- ✅ High contrast mode support
+- ✅ Keyboard navigation (Enter/Space for theme toggle)
+- ✅ ARIA labels and live regions
+- ✅ Semantic landmarks and headings
+
+### Core Web Vitals
+- **LCP** (Largest Contentful Paint): Optimized with preconnect + lazy loading
+- **FID** (First Input Delay): Reduced with deferred scripts
+- **CLS** (Cumulative Layout Shift): Prevented with proper image sizing
 
 ### Size Limits
 - **GitHub Pages**: 1 GB recommended
