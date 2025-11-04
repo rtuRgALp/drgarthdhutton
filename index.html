@@ -4,30 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>In Loving Memory of Dr. Garth Dalwin Hutton</title>
+    
+    <!-- Preconnect to CDNs for performance -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    
+    <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png" />
     <link rel="manifest" href="/static/site.webmanifest" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="./style.css" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    
+    <!-- Scripts -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js" defer></script>
-    <style>
-        .hero-section {
-            background: linear-gradient(to right, rgba(4, 45, 98, 0.9) 50%, rgba(4, 45, 98, 0.5)),
-                        url('./images/tribute_slideshow_web/001.jpg');
-            background-size: cover;
-            background-position: center top 30%;
-            background-blend-mode: multiply;
-        }
-        .section-divider { height: 100px; background: linear-gradient(to bottom, #bfe4f9, #8acff2); }
-        .youtube-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
-        .youtube-container iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-    </style>
 </head>
 <body class="font-sans bg-gray-50">
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+    
+    <!-- Theme announcement for screen readers -->
+    <div id="theme-announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+    
     <!-- Hero -->
     <section class="hero-section min-h-screen flex items-center">
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
@@ -73,7 +78,7 @@
 
     <!-- Obituary -->
     <section id="obituary" class="py-20 bg-white">
-        <div class="w-full max-w-7xl mx-auto px-4" data-aos="fade-up">
+        <div id="main-content" class="w-full max-w-7xl mx-auto px-4" data-aos="fade-up">
             <h2 class="text-3xl font-bold text-center mb-12">Obituary</h2>
             <div class="flex flex-col lg:flex-row items-stretch gap-8 mb-12">
                 <div class="lg:w-1/2">
@@ -137,7 +142,7 @@
                         <div class="w-32 h-32 mx-auto mb-8 rounded-full overflow-hidden border-4 border-blue-dark">
                             <img src="./images/prayer_card/card_thumb.jpg" alt="Dr. Garth Dalwin Hutton" class="w-full h-full object-cover" loading="lazy">
                         </div>
-                        <div class="border-t border-gray-200 w-16 mx-auto mb-8"></div>
+                        <div class="border-t border-subtle w-16 mx-auto mb-8"></div>
                         <p class="text-lg mb-6">Sunrise: August 9, 1961</p>
                         <p class="text-lg mb-10">Sunset: August 9, 2025</p>
                         <div class="mt-10">
@@ -151,7 +156,7 @@
                 <div class="prayer-card p-8" data-aos="fade-left">
                     <div class="prayer-card-content">
                         <h2 class="text-3xl font-bold mb-4 text-gray-900 text-center">Always with a smile</h2>
-                        <div class="border-t border-gray-200 w-16 mx-auto mb-6"></div>
+                        <div class="border-t border-subtle w-16 mx-auto mb-6"></div>
                         <div class="prayer-card-poem text-lg italic text-center">
                             <p class="mb-4">Now I'm with the angels, I've found eternal rest;<br>No more burdens to carry, I'm at peace and truly blessed.</p>
                             <p class="mb-4">I worked with love and purpose, I gave with all my heart;<br>But God had called me homeward, it was time for me to part.</p>
@@ -367,6 +372,12 @@
           if (this.icon) {
             this.icon.setAttribute('data-feather', isDark ? 'moon' : 'sun');
             if (window.feather) feather.replace();
+          }
+          
+          // Announce theme change to screen readers
+          const announcement = document.getElementById('theme-announcement');
+          if (announcement) {
+            announcement.textContent = `${isDark ? 'Dark' : 'Light'} mode activated`;
           }
           
           // Save preference

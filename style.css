@@ -11,6 +11,18 @@
   --gh-blue-light: #bfe4f9;
   --gh-blue-light-hover: #a8d9f5;
   
+  /* Typography Scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  
   /* Light Mode Colors */
   --bg-primary: #fafafa;
   --bg-secondary: #ffffff;
@@ -58,6 +70,99 @@
   --gh-shadow-lg: rgba(0, 0, 0, 0.5);
 }
 
+/* ===========================
+   HERO & LAYOUT COMPONENTS
+   =========================== */
+.hero-section {
+  background: linear-gradient(to right, rgba(4, 45, 98, 0.9) 50%, rgba(4, 45, 98, 0.5)),
+              url('./images/tribute_slideshow_web/001.jpg');
+  background-size: cover;
+  background-position: center top 30%;
+  background-blend-mode: multiply;
+}
+
+.section-divider {
+  height: 100px;
+  background: linear-gradient(to bottom, var(--gh-blue-light), #8acff2);
+}
+
+.youtube-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+
+.youtube-container iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Dark Mode Hero & Layout */
+.dark-mode .hero-section {
+  background: linear-gradient(to right, rgba(28, 24, 21, 0.9) 50%, rgba(28, 24, 21, 0.5)),
+              url('./images/tribute_slideshow_web/001.jpg');
+  background-size: cover;
+  background-position: center top 30%;
+  background-blend-mode: multiply;
+}
+
+.dark-mode .section-divider {
+  background: linear-gradient(to bottom, var(--bg-tertiary), var(--bg-secondary));
+}
+
+/* ===========================
+   ACCESSIBILITY UTILITIES
+   =========================== */
+/* Screen reader only - visually hidden but accessible to assistive tech */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Skip to main content link */
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--gh-blue-dark);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  z-index: 9999;
+  border-radius: 0 0 0.375rem 0;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .btn {
+    border-width: 2px;
+  }
+  
+  .theme-toggle {
+    border-width: 3px;
+  }
+  
+  :focus-visible {
+    outline-width: 3px;
+  }
+}
+
 /* Shared theme utilities */
 .bg-blue-dark { background-color: var(--gh-blue-dark); }
 .bg-blue-light { background-color: var(--gh-blue-light); }
@@ -65,6 +170,7 @@
 .text-blue-light { color: var(--gh-blue-light); }
 .border-blue-dark { border-color: var(--gh-blue-dark); }
 .border-blue-light { border-color: var(--gh-blue-light); }
+.border-subtle { border-color: var(--border-subtle); }
 
 /* Hover + focus helpers */
 .hover-lift { transition: transform .2s ease, box-shadow .2s ease; }
