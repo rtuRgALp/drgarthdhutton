@@ -1,11 +1,10 @@
-// Gallery Module (gallery.html only) - Infinite Scroll Version
+// Gallery Module (gallery.html only)
 class Gallery {
   constructor() {
     this.images = [];
     this.filteredImages = [];
-    this.loadedCount = 0;
+    this.currentPage = 1;
     this.perPage = 12;
-    this.loading = false;
   }
 
   async boot() {
@@ -33,21 +32,8 @@ class Gallery {
       await this.loadImages();
       this.render();
     });
-    
-    window.addEventListener('scroll', () => this.handleScroll());
     window.addEventListener('hashchange', () => this.syncFromHash());
     window.addEventListener('popstate', () => this.render());
-  }
-
-  handleScroll() {
-    if (this.loading || this.loadedCount >= this.filteredImages.length) return;
-    
-    const scrollPosition = window.innerHeight + window.scrollY;
-    const threshold = document.documentElement.scrollHeight - 500;
-    
-    if (scrollPosition >= threshold) {
-      this.loadMore();
-    }
   }
 
   async loadImages() {
@@ -56,7 +42,6 @@ class Gallery {
       if (!res.ok) throw new Error(`manifest ${res.status}`);
       this.images = await res.json();
       this.filteredImages = [...this.images];
-      this.loadedCount = 0;
       this.els.loading.classList.add('hidden');
       this.els.error.classList.add('hidden');
     } catch (e) {
@@ -69,6 +54,8 @@ class Gallery {
   render() {
     if (!this.els.grid) return;
     const total = this.filteredImages.length;
+    const totalPages = Math.max(1, Math.ceil(total / this.perPage));
+    this.currentPage = Math.min(Math.max(1, this.currentPage), totalPages);
 
     if (total === 0) {
       this.els.grid.innerHTML = `
@@ -81,29 +68,10 @@ class Gallery {
       return;
     }
 
-    this.els.grid.innerHTML = '';
-    this.loadedCount = 0;
-    this.loadMore();
-  }
+    const start = (this.currentPage - 1) * this.perPage;
+    const pageItems = this.filteredImages.slice(start, start + this.perPage);
 
-  loadMore() {
-    if (this.loading) return;
-    this.loading = true;
-    
-    const total = this.filteredImages.length;
-    const nextBatch = Math.min(this.perPage, total - this.loadedCount);
-    
-    if (nextBatch <= 0) {
-      this.loading = false;
-      this.updateLoadingIndicator();
-      return;
-    }
-    
-    const start = this.loadedCount;
-    const end = start + nextBatch;
-    const pageItems = this.filteredImages.slice(start, end);
-
-    const newHTML = pageItems.map(im => {
+    this.els.grid.innerHTML = pageItems.map(im => {
       const cap = im.title || 'Memory';
       const alt = im.alt || 'Memory image';
       return `
@@ -118,35 +86,42 @@ class Gallery {
         </div>`;
     }).join('');
 
-    this.els.grid.insertAdjacentHTML('beforeend', newHTML);
-    this.loadedCount = end;
-    
+    this.renderPager(totalPages);
     this.initLightGallery();
     feather.replace();
-    
-    this.loading = false;
-    this.updateLoadingIndicator();
     this.syncFromHash();
   }
 
-  updateLoadingIndicator() {
-    const total = this.filteredImages.length;
-    const remaining = total - this.loadedCount;
-    
-    if (remaining > 0) {
-      this.els.pager.innerHTML = `
-        <div class="text-center py-4 text-blue-dark">
-          <p class="text-sm">Showing ${this.loadedCount} of ${total} photos</p>
-          <p class="text-xs mt-1 opacity-75">Scroll down to load more...</p>
-        </div>`;
-    } else if (total > this.perPage) {
-      this.els.pager.innerHTML = `
-        <div class="text-center py-4 text-blue-dark">
-          <p class="text-sm">All ${total} photos loaded</p>
-        </div>`;
-    } else {
-      this.els.pager.innerHTML = '';
+  renderPager(totalPages) {
+    if (totalPages <= 1) { this.els.pager.innerHTML = ''; return; }
+    const cur = this.currentPage;
+    const btn = (p, label, dis=false, active=false) =>
+      `<button class="gh-gallery-page-btn ${active ? 'active':''}" ${dis?'disabled':''} data-page="${p}">${label}</button>`;
+
+    let html = '';
+    html += btn(Math.max(1, cur-1), '«', cur===1);
+
+    const windowSize = 5;
+    let start = Math.max(1, cur - Math.floor(windowSize/2));
+    let end = Math.min(totalPages, start + windowSize - 1);
+    if (end - start + 1 < windowSize) start = Math.max(1, end - windowSize + 1);
+
+    if (start > 1) {
+      html += btn(1, '1');
+      if (start > 2) html += `<span class="px-2">…</span>`;
     }
+    for (let i=start;i<=end;i++) html += btn(i, String(i), false, i===cur);
+    if (end < totalPages) {
+      if (end < totalPages-1) html += `<span class="px-2">…</span>`;
+      html += btn(totalPages, String(totalPages));
+    }
+
+    html += btn(Math.min(totalPages, cur+1), '»', cur===totalPages);
+    this.els.pager.innerHTML = html;
+
+    this.els.pager.querySelectorAll('button[data-page]').forEach(b=>{
+      b.addEventListener('click', () => { this.currentPage = Number(b.dataset.page); this.render(); });
+    });
   }
 
   initLightGallery() {
@@ -182,5 +157,6 @@ class Gallery {
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Gallery();
   app.boot();
-  window.gallery = app;
+  window.gallery = app; // debug hook
 });
+
