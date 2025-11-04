@@ -85,13 +85,67 @@ async function optimizeImage(sourceFile, optimizedFile, maxWidth, maxHeight, qua
 }
 
 /**
+ * Clean up orphaned optimized files (originals were deleted)
+ */
+async function cleanupOrphans(sourceDir, outputDir) {
+  // Find all optimized files
+  const optimizedPattern = `${outputDir}/**/*.jpg`;
+  const optimizedFiles = await fg(optimizedPattern, {
+    dot: false,
+    onlyFiles: true
+  });
+
+  let deleted = 0;
+  
+  for (const optimizedFile of optimizedFiles) {
+    // Reconstruct what the original filename should be
+    const rel = path.relative(outputDir, optimizedFile);
+    const parsed = path.parse(rel);
+    
+    // Check if ANY source file with this base name exists (any extension)
+    const basePath = path.join(sourceDir, parsed.dir, parsed.name);
+    const possibleSources = exts.map(ext => `${basePath}.${ext}`);
+    
+    let sourceExists = false;
+    for (const possibleSource of possibleSources) {
+      try {
+        await fs.access(possibleSource);
+        sourceExists = true;
+        break;
+      } catch (e) {
+        // File doesn't exist, continue checking
+      }
+    }
+    
+    // If no source file exists, delete the optimized version
+    if (!sourceExists) {
+      try {
+        await fs.unlink(optimizedFile);
+        console.log(`   🗑️  Removed orphan: ${path.relative(".", optimizedFile)}`);
+        deleted++;
+      } catch (e) {
+        console.error(`   ❌ Failed to delete ${optimizedFile}:`, e.message);
+      }
+    }
+  }
+  
+  return deleted;
+}
+
+/**
  * Process a single directory
  */
 async function processDirectory(config) {
   const { source, output, maxWidth, maxHeight, quality } = config;
   
-  console.log(`\n� Processing: ${source}`);
+  console.log(`\n📁 Processing: ${source}`);
   console.log(`   Output: ${output}`);
+  
+  // Clean up orphaned files first
+  const orphansDeleted = await cleanupOrphans(source, output);
+  if (orphansDeleted > 0) {
+    console.log(`   🧹 Cleaned up ${orphansDeleted} orphaned file(s)`);
+  }
   
   // Find all source images
   const pattern = `${source}/**/*.{${exts.join(",")}}`;
