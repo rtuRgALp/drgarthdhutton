@@ -71,6 +71,15 @@
 }
 
 /* ===========================
+   BASE STYLES
+   =========================== */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* ===========================
    HERO & LAYOUT COMPONENTS
    =========================== */
 .hero-section {
@@ -316,7 +325,20 @@
 .gh-gallery-card:focus-within { outline: 2px solid var(--gh-focus); outline-offset: 4px; }
 
 /* Responsive */
-@media (max-width: 640px) { .gh-gallery-grid { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { 
+  .gh-gallery-grid { 
+    grid-template-columns: 1fr; 
+  }
+  
+  /* Reduce gap on mobile to prevent overflow */
+  .gap-6 {
+    gap: 1rem;
+  }
+  
+  .gap-8 {
+    gap: 1.5rem;
+  }
+}
 
 /* ===========================
    DARK MODE OVERRIDES
