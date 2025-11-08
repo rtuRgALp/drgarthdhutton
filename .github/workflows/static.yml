@@ -54,15 +54,24 @@ jobs:
           
           # Copy only optimized images (exclude originals)
           mkdir -p _deploy/images
-          if [ -d "images/photo_gallery_web" ]; then
-            cp -r images/photo_gallery_web _deploy/images/
-          fi
           if [ -d "images/tribute_slideshow_web" ]; then
             cp -r images/tribute_slideshow_web _deploy/images/
           fi
           if [ -d "images/prayer_card" ]; then
             cp -r images/prayer_card _deploy/images/
           fi
+          
+          # Copy gallery directory (optimized pictures and videos)
+          if [ -d "gallery" ]; then
+            mkdir -p _deploy/gallery
+            if [ -d "gallery/pictures_web" ]; then
+              cp -r gallery/pictures_web _deploy/gallery/
+            fi
+            if [ -d "gallery/videos_web" ]; then
+              cp -r gallery/videos_web _deploy/gallery/
+            fi
+          fi
+          
           if [ -d "static" ]; then
             cp -r static _deploy/
           fi
