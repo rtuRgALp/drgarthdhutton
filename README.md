@@ -254,6 +254,21 @@ The site is automatically deployed to GitHub Pages when changes are pushed to th
 
 ---
 
+## 📦 Size Management
+
+**Deployment Size**: ~182 MB (well within GitHub Pages' 1GB limit)
+
+**What's Stored Where:**
+- **Git LFS** (originals, not deployed): \`gallery/pictures/\` (825 photos), \`gallery/videos/\` (1 video)
+- **Deployed to Pages**: Optimized versions only (\`gallery/pictures_web/\`, \`gallery/videos_web/\`)
+
+**Optimization Results:**
+- Photos: 85% quality JPEG, max 1920px (~200-400KB each)
+- Videos: H.264 MP4, CRF 23 (~78% size reduction)
+- Overall: 95%+ reduction from originals
+
+---
+
 ## 📝 License
 
 This website is a private memorial project. All photos and content are property of the Hutton family.
