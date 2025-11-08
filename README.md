@@ -44,7 +44,7 @@ A memorial website celebrating the life and legacy of Dr. Garth Dalwin Hutton (1
 
 ## 📁 Project Structure
 
-\`\`\`
+```
 drgarthdhutton/
 ├── src/                          # Source files
 │   ├── index.html               # Homepage
@@ -83,7 +83,7 @@ drgarthdhutton/
 └── .github/workflows/           # CI/CD automation
     ├── static.yml               # Deploy to GitHub Pages
     └── build-manifest.yml       # Auto-update gallery metadata
-\`\`\`
+```
 
 ---
 
@@ -118,93 +118,93 @@ drgarthdhutton/
 ### Setup
 
 1. **Clone the repository**
-   \`\`\`bash
+   ```bash
    git clone https://github.com/rtuRgALp/drgarthdhutton.git
    cd drgarthdhutton
-   \`\`\`
+   ```
 
 2. **Install dependencies**
-   \`\`\`bash
+   ```bash
    npm install
-   \`\`\`
+   ```
 
 3. **Pull Git LFS files** (optional, only needed for original images/videos)
-   \`\`\`bash
+   ```bash
    git lfs pull
-   \`\`\`
+   ```
 
 ### Local Development
 
 **Start the development server:**
-\`\`\`bash
+```bash
 npm start
-\`\`\`
-Opens at \`http://localhost:8080\`
+```
+Opens at `http://localhost:8080`
 
 **Available Scripts:**
-\`\`\`bash
+```bash
 npm run optimize:images   # Optimize images with Sharp
 npm run optimize:videos   # Optimize videos with FFmpeg
 npm run build:manifest    # Generate data/images.json
-\`\`\`
+```
 
 ---
 
 ## 🚀 Deployment
 
-The site is automatically deployed to GitHub Pages when changes are pushed to the \`main\` branch.
+The site is automatically deployed to GitHub Pages when changes are pushed to the `main` branch.
 
 ### Deployment Process
 
 1. **Push to main branch**
-   \`\`\`bash
+   ```bash
    git push origin main
-   \`\`\`
+   ```
 
 2. **GitHub Actions workflows run:**
-   - \`static.yml\`: Builds and deploys to GitHub Pages
-   - \`build-manifest.yml\`: Updates \`data/images.json\` if gallery changes
+   - `static.yml`: Builds and deploys to GitHub Pages
+   - `build-manifest.yml`: Updates `data/images.json` if gallery changes
 
 3. **Site updates in 2-3 minutes** at:
    https://rtuRgALp.github.io/drgarthdhutton/
 
 ### What Gets Deployed
-- All HTML, CSS, and JavaScript from \`src/\`
-- Optimized images (\`gallery/pictures_web/\`, \`images/tribute_slideshow_web/\`)
-- Optimized videos (\`gallery/videos_web/\`)
-- Static assets (\`static/\`, \`data/\`, \`files/\`)
+- All HTML, CSS, and JavaScript from `src/`
+- Optimized images (`gallery/pictures_web/`, `images/tribute_slideshow_web/`)
+- Optimized videos (`gallery/videos_web/`)
+- Static assets (`static/`, `data/`, `files/`)
 
 **Note**: Original high-res files in Git LFS are **not deployed** (only optimized versions).
 
 ---
 
-## ��️ Gallery Management
+## 🖼️ Gallery Management
 
 ### Adding New Photos
 
-1. **Add originals to \`gallery/pictures/\`**
-   \`\`\`bash
+1. **Add originals to `gallery/pictures/`**
+   ```bash
    cp new-photos/*.jpg gallery/pictures/
-   \`\`\`
+   ```
 
 2. **Optimize for web**
-   \`\`\`bash
+   ```bash
    npm run optimize:images
-   \`\`\`
-   This creates optimized versions in \`gallery/pictures_web/\` (JPEG, 85% quality, max 1920px)
+   ```
+   This creates optimized versions in `gallery/pictures_web/` (JPEG, 85% quality, max 1920px)
 
 3. **Update gallery metadata**
-   \`\`\`bash
+   ```bash
    npm run build:manifest
-   \`\`\`
-   This scans \`gallery/pictures_web/\` and generates \`data/images.json\`
+   ```
+   This scans `gallery/pictures_web/` and generates `data/images.json`
 
 4. **Commit and push**
-   \`\`\`bash
+   ```bash
    git add gallery/pictures/ gallery/pictures_web/ data/images.json
    git commit -m "Add new photos"
    git push
-   \`\`\`
+   ```
 
 ### Image Optimization Details
 - **Format**: JPEG
@@ -225,9 +225,9 @@ The site is automatically deployed to GitHub Pages when changes are pushed to th
 ## 🎨 Design Features
 
 ### Color Scheme
-- **Primary Blue**: \`#042d62\` (Dr. Hutton's brand color)
-- **Light Blue**: \`#bfe4f9\` (accents)
-- **Dark Mode**: Warm evening palette (\`#1c1815\` background)
+- **Primary Blue**: `#042d62` (Dr. Hutton's brand color)
+- **Light Blue**: `#bfe4f9` (accents)
+- **Dark Mode**: Warm evening palette (`#1c1815` background)
 
 ### Key UX Enhancements
 1. **Parallax scrolling** on hero section
@@ -259,8 +259,8 @@ The site is automatically deployed to GitHub Pages when changes are pushed to th
 **Deployment Size**: ~182 MB (well within GitHub Pages' 1GB limit)
 
 **What's Stored Where:**
-- **Git LFS** (originals, not deployed): \`gallery/pictures/\` (825 photos), \`gallery/videos/\` (1 video)
-- **Deployed to Pages**: Optimized versions only (\`gallery/pictures_web/\`, \`gallery/videos_web/\`)
+- **Git LFS** (originals, not deployed): `gallery/pictures/` (825 photos), `gallery/videos/` (1 video)
+- **Deployed to Pages**: Optimized versions only (`gallery/pictures_web/`, `gallery/videos_web/`)
 
 **Optimization Results:**
 - Photos: 85% quality JPEG, max 1920px (~200-400KB each)
