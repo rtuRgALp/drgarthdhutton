@@ -39,8 +39,9 @@ jobs:
           # Create a clean deployment directory
           mkdir -p _deploy
           
-          # Copy root files
-          cp *.html *.css *.js _deploy/
+          # Copy source files
+          cp src/*.html _deploy/
+          cp -r src/assets _deploy/
           
           # Copy data directory
           if [ -d "data" ]; then

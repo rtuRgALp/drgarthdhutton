@@ -1,325 +1,273 @@
-# In Loving Memory of Dr. Garth Dalwin Hutton
+# Dr. Garth Dalwin Hutton Memorial Website
 
-A responsive memorial website built with **HTML**, **TailwindCSS**, and **JavaScript** to honor the life and legacy of Dr. Garth Dalwin Hutton (1961-2025). The site features an optimized photo gallery, memorial resources, and automated image processing for optimal web performance.
+A memorial website celebrating the life and legacy of Dr. Garth Dalwin Hutton (1961-2025).
+
+🌐 **Live Site**: [rtuRgALp.github.io/drgarthdhutton](https://rtuRgALp.github.io/drgarthdhutton/)
 
 ---
 
-## 🌟 Features
+## 📋 Table of Contents
 
-### Pages
-* **Home Page (`index.html`)**: 
-  - Hero section with portrait background
-  - Complete obituary with photo
-  - Funeral service details and video
-  - Interactive prayer card display
-  - Memorial magazine preview
-  - Photo gallery preview
-  - Fully responsive with mobile hamburger menu
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Technology Stack](#technology-stack)
+- [Development](#development)
+- [Deployment](#deployment)
+- [Gallery Management](#gallery-management)
+- [Design Features](#design-features)
 
-* **Photo Gallery (`gallery.html`)**: 
-  - Dynamic, paginated photo gallery (12 photos per page)
-  - LightGallery integration with zoom, thumbnails, and fullscreen
-  - Smart pagination with ellipsis for large galleries
-  - Mobile-responsive navigation
-  - Lazy loading for performance
+---
+
+## ✨ Features
+
+### Core Pages
+- **Homepage**: Obituary, funeral details, prayer card, and memorial resources
+- **Gallery**: 825 optimized photos with lazy loading and lightbox viewing
+- **Slideshow**: Custom photo slideshow with play/pause controls
 
 ### Interactive Elements
-* **Dark Mode**: Warm "Evening Mode" theme with system preference detection and localStorage persistence
-* **Mobile Navigation**: Hamburger menu on both pages for mobile devices
-* **Scroll Animations**: AOS (Animate on Scroll) lazy-loaded for smooth entrance effects
-* **Lightbox Gallery**: Full-screen photo viewing with gestures
-* **Downloadable Resources**: 
-  - Prayer card (front & back) as ZIP
-  - Memorial magazine PDF
-* **Icons**: Feather Icons throughout
-* **Accessibility**: Skip-to-content links, screen reader announcements, high contrast support
+- 🎨 Light/Dark mode toggle with warm evening palette
+- 📜 Smooth scroll-to-top button (appears after 500px scroll)
+- 🖼️ Infinite scroll gallery with masonry layout
+- 🔍 Full-screen lightbox with zoom and thumbnails
+- 📱 Fully responsive design
+- ♿ Accessibility-focused (ARIA labels, keyboard navigation, screen reader support)
+
+### Media
+- 825 high-resolution photos (stored in Git LFS)
+- 162 tribute slideshow images
+- 1 memorial service video
+- Downloadable prayer card (PNG files)
+- Downloadable memorial magazine (PDF)
 
 ---
 
-## 🚀 Tech Stack
+## 📁 Project Structure
 
-### Frontend
-* **HTML5, CSS3, TailwindCSS** (via CDN)
-* **Vanilla JavaScript** (ES6 modules)
-
-### JavaScript Libraries
-* [AOS (Animate on Scroll)](https://michalsnik.github.io/aos/) - Scroll animations (lazy-loaded)
-* [Feather Icons](https://feathericons.com/) - Icon system
-* [LightGallery](https://www.lightgalleryjs.com/) - Photo gallery with plugins:
-  - Zoom
-  - Thumbnails
-  - Fullscreen
-* [JSZip](https://stuk.github.io/jszip/) - Client-side ZIP creation
-* [FileSaver.js](https://github.com/eligrey/FileSaver.js/) - Download handling
-
-### Custom Modules
-* **theme-manager.js** - Dark/light mode switching with persistence
-* **script.js** - Infinite scroll gallery logic
-
-### Build Tools
-* **Node.js** (v20+) for image optimization
-* **Sharp** - High-performance image processing
-* **fast-glob** - File pattern matching
-
----
-
-## 📦 Setup & Development
-
-### Prerequisites
-- Node.js 20+ 
-- npm
-- Git with Git LFS enabled
-
-### Installation
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/rtuRgALp/drgarthdhutton.git
-   cd drgarthdhutton
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Optimize images** (first time):
-   ```bash
-   npm run optimize:images
-   ```
-
-4. **Build gallery manifest**:
-   ```bash
-   npm run build:manifest
-   ```
-
-5. **Start development server**:
-   ```bash
-   npm start
-   ```
-   Visit: http://localhost:8080
-
-### Available Scripts
-
-```bash
-npm start               # Start local dev server (port 8080)
-npm run dev             # Alias for start
-npm run optimize:images # Optimize all images for web
-npm run build:manifest  # Generate gallery manifest (data/images.json)
-npm run generate:favicon # Generate favicon set from source image
-npm run check:size      # Check deployment size
-```
-
----
-
-## 🖼️ Image Optimization System
-
-The site uses an intelligent two-tier image storage system:
-
-### Architecture
-- **Original Images** (Git LFS): High-resolution source files
-  - `images/photo_gallery/` - Gallery originals (2.6GB)
-  - `images/tribute_slideshow/` - Tribute originals (291MB)
-  
-- **Optimized Images** (Git): Web-optimized versions for deployment
-  - `images/photo_gallery_web/` - Optimized gallery (107MB, 96% reduction)
-  - `images/tribute_slideshow_web/` - Optimized tribute (53MB, 82% reduction)
-
-### How It Works
-1. Add high-res photos to `images/photo_gallery/` or `images/tribute_slideshow/`
-2. Run `npm run optimize:images` to generate web versions
-3. Optimization settings:
-   - Max dimensions: 1920×1920px
-   - Quality: 85% JPEG
-   - Progressive encoding
-   - Auto-rotation from EXIF
-   - Smart caching (only processes new/changed images)
-
-### Automatic Workflow
-GitHub Actions automatically optimizes images on push:
-1. Detects new/changed images
-2. Generates optimized versions
-3. Updates gallery manifest
-4. Commits changes back to repo
-
----
-
-## 📁 File Structure
-
-```
+\`\`\`
 drgarthdhutton/
-├── index.html                    # Main home page
-├── gallery.html                  # Photo gallery page
-├── script.js                     # Gallery logic (infinite scroll)
-├── theme-manager.js              # Dark/light mode controller
-├── style.css                     # Custom styles + CSS variables + dark mode
-├── package.json                  # Dependencies & scripts
-├── README.md                     # This file
-├── SIZE_MANAGEMENT.md            # Size optimization guide
-│
-├── .github/workflows/
-│   ├── build-manifest.yml        # Auto-generate gallery manifest
-│   └── static.yml                # GitHub Pages deployment
-│
-├── scripts/
-│   ├── optimize-images.mjs       # Image optimization tool
-│   ├── build-manifest.mjs        # Gallery manifest generator
-│   ├── check-size.sh             # Deployment size checker
-│   └── generate-favicon.mjs      # Favicon generator
+├── src/                          # Source files
+│   ├── index.html               # Homepage
+│   ├── gallery.html             # Photo gallery page
+│   └── assets/
+│       ├── css/
+│       │   └── style.css        # Main stylesheet
+│       └── js/
+│           ├── script.js        # Gallery & slideshow logic
+│           └── theme-manager.js # Dark mode toggle
 │
 ├── data/
-│   └── images.json               # Gallery manifest (auto-generated)
+│   └── images.json              # Gallery image metadata (auto-generated)
+│
+├── gallery/
+│   ├── pictures/                # Original photos (Git LFS)
+│   ├── pictures_web/            # Optimized photos (825 images)
+│   ├── videos/                  # Original videos (Git LFS)
+│   └── videos_web/              # Optimized videos (MP4, H.264)
 │
 ├── images/
-│   ├── photo_gallery/            # Original gallery photos (Git LFS)
-│   ├── photo_gallery_web/        # Optimized gallery (committed)
-│   ├── tribute_slideshow/        # Original tribute images (Git LFS)
-│   ├── tribute_slideshow_web/    # Optimized tribute (committed)
-│   └── prayer_card/              # Prayer card images
+│   ├── prayer_card/             # Prayer card images
+│   ├── tribute_slideshow/       # Original slideshow (Git LFS)
+│   └── tribute_slideshow_web/   # Optimized slideshow (162 images)
 │
-├── static/
-│   └── *.png, *.ico, manifest    # Favicons and PWA manifest
+├── files/
+│   └── memorial_magazine/       # PDF and thumbnail
 │
-└── files/
-    └── memorial_magazine/        # PDF and thumbnails
-```
+├── static/                      # Favicons and manifest
+│
+├── scripts/                     # Build & optimization scripts
+│   ├── build-manifest.mjs       # Generate images.json
+│   ├── optimize-images.mjs      # Image optimization (Sharp)
+│   └── optimize-videos.mjs      # Video optimization (FFmpeg)
+│
+└── .github/workflows/           # CI/CD automation
+    ├── static.yml               # Deploy to GitHub Pages
+    └── build-manifest.yml       # Auto-update gallery metadata
+\`\`\`
 
 ---
 
-## 🌐 Deployment
+## 🛠️ Technology Stack
 
-### GitHub Pages (Current)
-The site is automatically deployed via GitHub Actions:
-1. Push changes to `main` branch
-2. Workflow creates deployment package (~180MB)
-3. Only optimized images are deployed
-4. Original images stay in Git LFS
+### Frontend
+- **HTML5** + **CSS3** (CSS Variables for theming)
+- **Vanilla JavaScript** (ES6 modules)
+- **Tailwind CSS** (CDN for utility classes)
+- **LightGallery 2.7.2** (photo lightbox)
+- **Feather Icons** (UI icons)
+- **AOS** (scroll animations)
 
-### Deployment Size
-- **Total Deployment**: ~182 MB (18% of 1GB limit)
-- **Gallery (optimized)**: 107 MB
-- **Tribute (optimized)**: 53 MB
-- **Other assets**: ~22 MB
-- **Headroom**: 840 MB available
+### Build Tools
+- **Sharp** (image optimization)
+- **FFmpeg** (video transcoding)
+- **fast-glob** (file scanning)
 
-### Alternative Platforms
-Can also deploy to:
-- Netlify
-- Vercel
-- Cloudflare Pages
-- Any static hosting service
+### Hosting & CI/CD
+- **GitHub Pages** (static hosting)
+- **GitHub Actions** (automated deployment)
+- **Git LFS** (large file storage for originals)
 
 ---
 
-## 🎨 Customization
+## 💻 Development
 
-### Theme System
-The site features a sophisticated dark/light mode system with warm tones:
+### Prerequisites
+- Node.js 20+ and npm
+- Git with Git LFS installed
 
-**Light Mode** (Default):
-- Navy blue (#042d62) and cyan (#bfe4f9) accents
-- Clean white backgrounds
-- High contrast for readability
+### Setup
 
-**Dark Mode** ("Evening Mode"):
-- Warm brown backgrounds (#1c1815, #2a2622, #3d3832)
-- Cream text (#f5f1e8, #d4cfc3)
-- Dignified warm tones appropriate for memorial context
+1. **Clone the repository**
+   \`\`\`bash
+   git clone https://github.com/rtuRgALp/drgarthdhutton.git
+   cd drgarthdhutton
+   \`\`\`
 
-Edit CSS variables in `style.css`:
-```css
-:root {
-  /* Light mode */
-  --bg-primary: #ffffff;
-  --text-primary: #1f2937;
-  --gh-blue-dark: #042d62;
-  --gh-blue-light: #bfe4f9;
-}
+2. **Install dependencies**
+   \`\`\`bash
+   npm install
+   \`\`\`
 
-.dark-mode {
-  /* Dark mode */
-  --bg-primary: #1c1815;
-  --text-primary: #f5f1e8;
-  /* ... warm brown palette */
-}
-```
+3. **Pull Git LFS files** (optional, only needed for original images/videos)
+   \`\`\`bash
+   git lfs pull
+   \`\`\`
 
-### Social Sharing
-Open Graph and Twitter Card metadata included for beautiful social previews:
-- Custom titles and descriptions per page
-- Featured images for sharing
-- Edit meta tags in `<head>` of each HTML file
+### Local Development
 
-### Adding Photos
-1. Add high-res photos to `images/photo_gallery/`
-2. Run `npm run optimize:images`
-3. Run `npm run build:manifest`
-4. Test with `npm start`
-5. Commit and push
+**Start the development server:**
+\`\`\`bash
+npm start
+\`\`\`
+Opens at \`http://localhost:8080\`
 
-### Updating Content
-- **Obituary**: Edit `index.html` lines 68-85
-- **Services**: Edit `index.html` lines 88-117
-- **Prayer Card**: Replace images in `images/prayer_card/`
-- **Videos**: Update YouTube embed URLs in `index.html`
+**Available Scripts:**
+\`\`\`bash
+npm run optimize:images   # Optimize images with Sharp
+npm run optimize:videos   # Optimize videos with FFmpeg
+npm run build:manifest    # Generate data/images.json
+\`\`\`
 
 ---
 
-## 📊 Performance
+## 🚀 Deployment
 
-### Optimizations
-- ✅ Image optimization (95%+ reduction)
-- ✅ Lazy loading for images and animations
-- ✅ Progressive JPEG encoding
-- ✅ CDN preconnect hints for faster resource loading
-- ✅ Resource preloading (gallery JSON data)
-- ✅ Infinite scroll gallery (12 photos per batch)
-- ✅ Modular JavaScript (theme-manager.js separated)
-- ✅ Deferred script loading
-- ✅ Mobile-first responsive design
-- ✅ Semantic HTML and accessibility features
+The site is automatically deployed to GitHub Pages when changes are pushed to the \`main\` branch.
 
-### Accessibility (WCAG AAA)
-- ✅ Skip-to-content links
-- ✅ Screen reader announcements (theme changes)
-- ✅ High contrast mode support
-- ✅ Keyboard navigation (Enter/Space for theme toggle)
-- ✅ ARIA labels and live regions
-- ✅ Semantic landmarks and headings
+### Deployment Process
 
-### Core Web Vitals
-- **LCP** (Largest Contentful Paint): Optimized with preconnect + lazy loading
-- **FID** (First Input Delay): Reduced with deferred scripts
-- **CLS** (Cumulative Layout Shift): Prevented with proper image sizing
+1. **Push to main branch**
+   \`\`\`bash
+   git push origin main
+   \`\`\`
 
-### Size Limits
-- **GitHub Pages**: 1 GB recommended
-- **Current usage**: 182 MB (18%)
-- **Can add**: ~13,000 more photos at current quality
+2. **GitHub Actions workflows run:**
+   - \`static.yml\`: Builds and deploys to GitHub Pages
+   - \`build-manifest.yml\`: Updates \`data/images.json\` if gallery changes
+
+3. **Site updates in 2-3 minutes** at:
+   https://rtuRgALp.github.io/drgarthdhutton/
+
+### What Gets Deployed
+- All HTML, CSS, and JavaScript from \`src/\`
+- Optimized images (\`gallery/pictures_web/\`, \`images/tribute_slideshow_web/\`)
+- Optimized videos (\`gallery/videos_web/\`)
+- Static assets (\`static/\`, \`data/\`, \`files/\`)
+
+**Note**: Original high-res files in Git LFS are **not deployed** (only optimized versions).
 
 ---
 
-## 🤝 Contributing
+## ��️ Gallery Management
 
-This is a memorial website for family use. If you're a family member:
-1. Contact the repository owner for access
-2. Follow the image optimization workflow
-3. Test locally before pushing
-4. Be respectful of the memorial nature
+### Adding New Photos
+
+1. **Add originals to \`gallery/pictures/\`**
+   \`\`\`bash
+   cp new-photos/*.jpg gallery/pictures/
+   \`\`\`
+
+2. **Optimize for web**
+   \`\`\`bash
+   npm run optimize:images
+   \`\`\`
+   This creates optimized versions in \`gallery/pictures_web/\` (JPEG, 85% quality, max 1920px)
+
+3. **Update gallery metadata**
+   \`\`\`bash
+   npm run build:manifest
+   \`\`\`
+   This scans \`gallery/pictures_web/\` and generates \`data/images.json\`
+
+4. **Commit and push**
+   \`\`\`bash
+   git add gallery/pictures/ gallery/pictures_web/ data/images.json
+   git commit -m "Add new photos"
+   git push
+   \`\`\`
+
+### Image Optimization Details
+- **Format**: JPEG
+- **Quality**: 85%
+- **Max dimension**: 1920px (width or height)
+- **Average size**: ~200-400KB per image
+- **Tool**: Sharp (Node.js image processing)
+
+### Video Optimization Details
+- **Format**: MP4 (H.264)
+- **Quality**: CRF 23
+- **Resolution**: Preserved from original
+- **Average size reduction**: ~78%
+- **Tool**: FFmpeg
 
 ---
 
-## 📄 License
+## 🎨 Design Features
 
-This project is provided for **memorial and personal use only**.  
-All rights reserved by the Hutton family.  
-Modify freely for family remembrance purposes.
+### Color Scheme
+- **Primary Blue**: \`#042d62\` (Dr. Hutton's brand color)
+- **Light Blue**: \`#bfe4f9\` (accents)
+- **Dark Mode**: Warm evening palette (\`#1c1815\` background)
+
+### Key UX Enhancements
+1. **Parallax scrolling** on hero section
+2. **Masonry grid layout** for photo gallery
+3. **Glassmorphism effects** on cards
+4. **Smooth scroll animations** (AOS library)
+5. **Infinite scroll** with lazy loading (12 images per batch)
+6. **Dynamic lightbox** (all 825 images accessible despite lazy DOM)
+7. **Custom slideshow** with 4-second intervals
+8. **Scroll-to-top button** (avoids ad-blocker conflicts)
+
+### Browser Compatibility
+- ✅ Chrome/Edge/Brave (tested)
+- ✅ Firefox
+- ✅ Safari
+- ✅ Mobile browsers (iOS & Android)
+
+### Accessibility
+- ARIA labels on all interactive elements
+- Keyboard navigation support
+- Screen reader announcements for theme changes
+- Skip-to-content link
+- Prefers-reduced-motion support
 
 ---
 
-## 💙 In Memory
+## 📝 License
 
-> "Always with a smile"  
-> Dr. Garth Dalwin Hutton  
-> August 9, 1961 - August 9, 2025
+This website is a private memorial project. All photos and content are property of the Hutton family.
 
+---
+
+## 👥 Credits
+
+**Site Development**: AI-assisted development with GitHub Copilot  
+**Design**: Custom memorial theme with family brand colors  
+**Photos**: Hutton family collection  
+**Hosting**: GitHub Pages
+
+---
+
+**In Loving Memory of Dr. Garth Dalwin Hutton**  
+*August 9, 1961 - August 9, 2025*
