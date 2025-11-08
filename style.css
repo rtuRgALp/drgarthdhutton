@@ -651,7 +651,7 @@ body {
 /* ===========================
    SCROLL TO TOP BUTTON
    =========================== */
-.scroll-to-top {
+.page-top-btn {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
@@ -673,57 +673,57 @@ body {
   z-index: 1000;
 }
 
-.scroll-to-top:hover {
+.page-top-btn:hover {
   background-color: var(--gh-blue-dark-hover);
   color: #ffffff;
   transform: translateY(0) scale(1.1);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
 }
 
-.scroll-to-top:active {
+.page-top-btn:active {
   transform: translateY(0) scale(0.95);
 }
 
-.scroll-to-top.visible {
+.page-top-btn.visible {
   opacity: 1 !important;
   visibility: visible !important;
   transform: translateY(0) !important;
 }
 
-.scroll-to-top svg {
+.page-top-btn svg {
   width: 24px;
   height: 24px;
   stroke-width: 2.5;
 }
 
-.dark-mode .scroll-to-top {
+.dark-mode .page-top-btn {
   background-color: var(--gh-blue-dark);
   color: var(--text-on-dark);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
-.dark-mode .scroll-to-top:hover {
+.dark-mode .page-top-btn:hover {
   background-color: var(--gh-blue-dark-hover);
   color: var(--text-on-dark);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .scroll-to-top {
+  .page-top-btn {
     transition: opacity 0.3s ease, visibility 0.3s ease;
     transform: none !important;
   }
 }
 
 @media (max-width: 768px) {
-  .scroll-to-top {
+  .page-top-btn {
     bottom: 1rem;
     right: 1rem;
     width: 44px;
     height: 44px;
   }
   
-  .scroll-to-top svg {
+  .page-top-btn svg {
     width: 22px;
     height: 22px;
   }
