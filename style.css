@@ -648,4 +648,86 @@ body {
   }
 }
 
+/* ===========================
+   SCROLL TO TOP BUTTON
+   =========================== */
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  background-color: var(--gh-blue-dark);
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.scroll-to-top:hover {
+  background-color: var(--gh-blue-dark-hover);
+  color: #ffffff;
+  transform: translateY(0) scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
+}
+
+.scroll-to-top:active {
+  transform: translateY(0) scale(0.95);
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-to-top svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2.5;
+}
+
+.dark-mode .scroll-to-top {
+  background-color: var(--bg-secondary);
+  color: var(--gh-blue-dark);
+  border-color: var(--gh-blue-dark);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+.dark-mode .scroll-to-top:hover {
+  background-color: var(--gh-blue-dark);
+  color: var(--text-on-dark);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-to-top {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transform: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .scroll-to-top {
+    bottom: 1rem;
+    right: 1rem;
+    width: 44px;
+    height: 44px;
+  }
+  
+  .scroll-to-top svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
 

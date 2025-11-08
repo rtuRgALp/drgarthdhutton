@@ -3,9 +3,9 @@ import path from "node:path";
 import fg from "fast-glob";
 import sharp from "sharp";
 
-// 🔒 Limit indexing to photo_gallery only
-const IMAGES_DIR = "images/photo_gallery";
-const OPTIMIZED_DIR = "images/photo_gallery_web";
+// 🔒 Limit indexing to gallery/pictures only
+const IMAGES_DIR = "gallery/pictures";
+const OPTIMIZED_DIR = "gallery/pictures_web";
 const OUT_DIR = "data";
 const OUT_FILE = path.join(OUT_DIR, "images.json");
 
@@ -29,7 +29,7 @@ function toSrc(relPath) {
  */
 function toOptimizedSrc(sourceRelPath) {
   const parsed = path.parse(sourceRelPath);
-  // Change directory from photo_gallery to photo_gallery_web
+  // Change directory from gallery/pictures to gallery/pictures_web
   const optimizedDir = path.join(OPTIMIZED_DIR, parsed.dir.replace(IMAGES_DIR, ""));
   // Change extension to .jpg (our optimization output format)
   const optimizedName = parsed.name + ".jpg";

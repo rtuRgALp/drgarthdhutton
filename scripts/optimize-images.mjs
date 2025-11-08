@@ -6,8 +6,8 @@ import sharp from "sharp";
 // Directory configurations
 const DIRS_TO_OPTIMIZE = [
   {
-    source: "images/photo_gallery",
-    output: "images/photo_gallery_web",
+    source: "gallery/pictures",
+    output: "gallery/pictures_web",
     maxWidth: 1920,
     maxHeight: 1920,
     quality: 85,
@@ -20,23 +20,8 @@ const DIRS_TO_OPTIMIZE = [
     maxHeight: 1920,
     quality: 85,
     preserveFormat: false  // Convert to JPG
-  },
-  {
-    source: "files/memorial_magazine",
-    output: "files/memorial_magazine",  // Optimize in place (thumbnails only)
-    maxWidth: 600,  // Thumbnails don't need to be huge
-    maxHeight: 800,
-    quality: 85,
-    preserveFormat: false  // Convert to JPG
-  },
-  {
-    source: "static",
-    output: "static",  // Optimize favicons in place
-    maxWidth: 512,  // Largest favicon size
-    maxHeight: 512,
-    quality: 90,  // High quality for crisp icons
-    preserveFormat: true  // Keep PNG format for transparency/browser support
   }
+  // Note: memorial_magazine and static directories already optimized manually
 ];
 
 // Supported input extensions
@@ -85,6 +70,10 @@ async function optimizeImage(sourceFile, optimizedFile, maxWidth, maxHeight, qua
     // Determine output format
     const isPng = preserveFormat && optimizedFile.toLowerCase().endsWith('.png');
     
+    // For in-place optimization (same source and output), use temp file
+    const isSameFile = sourceFile === optimizedFile;
+    const tempFile = isSameFile ? `${optimizedFile}.tmp` : optimizedFile;
+    
     // Process the image
     let pipeline = sharp(sourceFile)
       .rotate() // Auto-rotate based on EXIF orientation
@@ -108,7 +97,13 @@ async function optimizeImage(sourceFile, optimizedFile, maxWidth, maxHeight, qua
       });
     }
     
-    await pipeline.toFile(optimizedFile);
+    await pipeline.toFile(tempFile);
+
+    // If in-place, replace original with optimized
+    if (isSameFile) {
+      await fs.unlink(sourceFile);
+      await fs.rename(tempFile, optimizedFile);
+    }
 
     return true;
   } catch (e) {

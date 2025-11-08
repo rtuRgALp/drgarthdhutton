@@ -1,15 +1,19 @@
 sW86fHx_CtM.mp4 filter=lfs diff=lfs merge=lfs -text
 .mp4 filter=lfs diff=lfs merge=lfs -text
 *.mp4 filter=lfs diff=lfs merge=lfs -text
-
 # Store original high-resolution photos in Git LFS
 images/photo_gallery/**/*.jpg filter=lfs diff=lfs merge=lfs -text
 images/photo_gallery/**/*.jpeg filter=lfs diff=lfs merge=lfs -text
 images/photo_gallery/**/*.png filter=lfs diff=lfs merge=lfs -text
 images/photo_gallery/**/*.HEIC filter=lfs diff=lfs merge=lfs -text
 images/photo_gallery/**/*.heic filter=lfs diff=lfs merge=lfs -text
-
 # Store original tribute slideshow in Git LFS
 images/tribute_slideshow/**/*.jpg filter=lfs diff=lfs merge=lfs -text
 images/tribute_slideshow/**/*.jpeg filter=lfs diff=lfs merge=lfs -text
 images/tribute_slideshow/**/*.png filter=lfs diff=lfs merge=lfs -text
+*.MOV filter=lfs diff=lfs merge=lfs -text
+gallery/pictures/*.jpeg filter=lfs diff=lfs merge=lfs -text
+gallery/pictures/*.JPEG filter=lfs diff=lfs merge=lfs -text
+*.MP4 filter=lfs diff=lfs merge=lfs -text
+gallery/pictures/*.jpg filter=lfs diff=lfs merge=lfs -text
+gallery/pictures/*.JPG filter=lfs diff=lfs merge=lfs -text

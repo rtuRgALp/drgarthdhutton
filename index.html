@@ -213,7 +213,7 @@
                     <h3 class="text-2xl font-bold mb-4 text-blue-dark">Photo Gallery</h3>
                     <!-- fixed-height media slot -->
                     <div class="media-slot mb-4">
-                      <img src="./images/photo_gallery_web/2D8A6583.jpg" alt="Gallery Preview" loading="lazy" decoding="async">
+                      <img src="./gallery/pictures_web/2D8A6583.jpg" alt="Gallery Preview" loading="lazy" decoding="async">
                     </div>
                     <p class="text-gray-700 mb-6 clamp-2">Browse photos from the celebration of life events and memorial services.</p>
                     <a href="./gallery.html" class="btn btn-outline">View Gallery</a>
@@ -269,6 +269,11 @@
         </div>
     </footer>
 
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top" class="scroll-to-top" aria-label="Scroll to top">
+        <i data-feather="chevron-up"></i>
+    </button>
+
     <!-- Page Scripts -->
     <script>
       window.addEventListener('DOMContentLoaded', () => {
@@ -291,6 +296,27 @@
         setTimeout(loadAOS, 100);
         
         if (window.feather) feather.replace();
+        
+        // Scroll to top button
+        const scrollToTopBtn = document.getElementById('scroll-to-top');
+        if (scrollToTopBtn) {
+          // Show/hide button based on scroll position
+          window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+              scrollToTopBtn.classList.add('visible');
+            } else {
+              scrollToTopBtn.classList.remove('visible');
+            }
+          });
+          
+          // Smooth scroll to top when clicked
+          scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
+          });
+        }
         
         // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');

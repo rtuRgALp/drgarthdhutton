@@ -10,15 +10,15 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://rtuRgALp.github.io/drgarthdhutton/gallery.html" />
   <meta property="og:title" content="Photo Gallery | In Loving Memory of Dr. Garth Dalwin Hutton" />
-  <meta property="og:description" content="Browse 446 photos celebrating the life of Dr. Garth Dalwin Hutton (1961-2025). A collection of memories spanning his remarkable journey." />
-  <meta property="og:image" content="https://rtuRgALp.github.io/drgarthdhutton/images/photo_gallery_web/001.jpg" />
+  <meta property="og:description" content="Browse 825 photos celebrating the life of Dr. Garth Dalwin Hutton (1961-2025). A collection of memories spanning his remarkable journey." />
+  <meta property="og:image" content="https://rtuRgALp.github.io/drgarthdhutton/gallery/pictures_web/2D8A6583.jpg" />
   
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://rtuRgALp.github.io/drgarthdhutton/gallery.html" />
   <meta property="twitter:title" content="Photo Gallery | In Loving Memory of Dr. Garth Dalwin Hutton" />
-  <meta property="twitter:description" content="Browse 446 photos celebrating the life of Dr. Garth Dalwin Hutton (1961-2025). A collection of memories spanning his remarkable journey." />
-  <meta property="twitter:image" content="https://rtuRgALp.github.io/drgarthdhutton/images/photo_gallery_web/001.jpg" />
+  <meta property="twitter:description" content="Browse 825 photos celebrating the life of Dr. Garth Dalwin Hutton (1961-2025). A collection of memories spanning his remarkable journey." />
+  <meta property="twitter:image" content="https://rtuRgALp.github.io/drgarthdhutton/gallery/pictures_web/2D8A6583.jpg" />
   
   <!-- Preconnect to CDNs for performance -->
   <link rel="preconnect" href="https://cdn.tailwindcss.com">
@@ -147,6 +147,11 @@
     </div>
   </footer>
 
+  <!-- Scroll to Top Button -->
+  <button id="scroll-to-top" class="scroll-to-top" aria-label="Scroll to top">
+      <i data-feather="chevron-up"></i>
+  </button>
+
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/lightgallery.min.js"></script>
@@ -156,6 +161,27 @@
   <script type="module" src="./script.js"></script>
   <script>
     feather.replace();
+    
+    // Scroll to top button
+    const scrollToTopBtn = document.getElementById('scroll-to-top');
+    if (scrollToTopBtn) {
+      // Show/hide button based on scroll position
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+          scrollToTopBtn.classList.add('visible');
+        } else {
+          scrollToTopBtn.classList.remove('visible');
+        }
+      });
+      
+      // Smooth scroll to top when clicked
+      scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    }
     
     // Mobile menu toggle
     document.addEventListener('DOMContentLoaded', () => {

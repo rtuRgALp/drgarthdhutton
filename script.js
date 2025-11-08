@@ -12,6 +12,11 @@ class Gallery {
     const root = document.getElementById('gallery-root');
     if (!root) return;
 
+    // Prevent browser scroll restoration from jumping
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
     this.q = sel => document.querySelector(sel);
     this.els = {
       grid: this.q('#gh-gallery-grid'),
@@ -36,7 +41,14 @@ class Gallery {
     
     window.addEventListener('scroll', () => this.handleScroll());
     window.addEventListener('hashchange', () => this.syncFromHash());
-    window.addEventListener('popstate', () => this.render());
+    
+    // Don't re-render on popstate to avoid scroll jumping
+    window.addEventListener('popstate', (e) => {
+      // Only sync hash if present, don't re-render entire gallery
+      if (location.hash) {
+        this.syncFromHash();
+      }
+    });
   }
 
   handleScroll() {
@@ -59,6 +71,9 @@ class Gallery {
       this.loadedCount = 0;
       this.els.loading.classList.add('hidden');
       this.els.error.classList.add('hidden');
+      
+      // Initialize lightGallery once with all images
+      this.initLightGallery();
     } catch (e) {
       console.error('loadImages', e);
       this.els.loading.classList.add('hidden');
@@ -103,12 +118,13 @@ class Gallery {
     const end = start + nextBatch;
     const pageItems = this.filteredImages.slice(start, end);
 
-    const newHTML = pageItems.map(im => {
+    const newHTML = pageItems.map((im, idx) => {
       const cap = im.title || 'Memory';
       const alt = im.alt || 'Memory image';
+      const globalIdx = start + idx;
       return `
         <div class="gh-gallery-card">
-          <a href="${im.src}" class="gh-gallery-image" data-sub-html="<h4>${this.escape(cap)}</h4>">
+          <a href="#" class="gh-gallery-image" data-index="${globalIdx}">
             <img src="${im.src}" alt="${this.escape(alt)}" class="gh-gallery-img" loading="lazy" decoding="async">
           </a>
         </div>`;
@@ -117,7 +133,19 @@ class Gallery {
     this.els.grid.insertAdjacentHTML('beforeend', newHTML);
     this.loadedCount = end;
     
-    this.initLightGallery();
+    // Add click handlers for new images
+    const newAnchors = this.els.grid.querySelectorAll('.gh-gallery-image:not([data-handled])');
+    newAnchors.forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        e.preventDefault();
+        const index = parseInt(anchor.dataset.index);
+        if (this._lg) {
+          this._lg.openGallery(index);
+        }
+      });
+      anchor.setAttribute('data-handled', 'true');
+    });
+    
     feather.replace();
     
     this.loading = false;
@@ -146,11 +174,22 @@ class Gallery {
   }
 
   initLightGallery() {
+    if (this._lg) return; // Only initialize once
+    
     const grid = document.getElementById('gh-gallery-grid');
     if (!grid || !window.lightGallery) return;
-    if (this._lg) { try { this._lg.destroy(true); } catch(_){} }
+    
+    // Create dynamic gallery with ALL filtered images
+    const dynamicItems = this.filteredImages.map(im => ({
+      src: im.src,
+      thumb: im.src,
+      subHtml: `<h4>${this.escape(im.title || 'Memory')}</h4>`,
+      alt: im.alt || 'Memory image'
+    }));
+    
     this._lg = lightGallery(grid, {
-      selector: '.gh-gallery-image',
+      dynamic: true,
+      dynamicEl: dynamicItems,
       plugins: [lgZoom, lgThumbnail, lgFullscreen],
       download: false,
       counter: true,
@@ -165,10 +204,8 @@ class Gallery {
     if (!hash.startsWith('#img=')) return;
     const token = decodeURIComponent(hash.slice(5));
     const idx = this.filteredImages.findIndex(im => im.src.endsWith(token) || im.src.includes(token));
-    if (idx >= 0) {
-      const anchors = Array.from(document.querySelectorAll('.gh-gallery-image'));
-      const a = anchors[idx % anchors.length];
-      if (a) a.click();
+    if (idx >= 0 && this._lg) {
+      this._lg.openGallery(idx);
     }
   }
 
