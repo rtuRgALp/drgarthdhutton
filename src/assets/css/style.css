@@ -84,7 +84,7 @@ body {
    =========================== */
 .hero-section {
   background: linear-gradient(to right, rgba(4, 45, 98, 0.9) 50%, rgba(4, 45, 98, 0.5)),
-              url('./images/tribute_slideshow_web/001.jpg');
+              url('/images/tribute_slideshow_web/001.jpg');
   background-size: cover;
   background-position: center top 30%;
   background-blend-mode: multiply;
@@ -113,7 +113,7 @@ body {
 /* Dark Mode Hero & Layout */
 .dark-mode .hero-section {
   background: linear-gradient(to right, rgba(28, 24, 21, 0.9) 50%, rgba(28, 24, 21, 0.5)),
-              url('./images/tribute_slideshow_web/001.jpg');
+              url('/images/tribute_slideshow_web/001.jpg');
   background-size: cover;
   background-position: center top 30%;
   background-blend-mode: multiply;
