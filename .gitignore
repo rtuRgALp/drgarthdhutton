@@ -16,3 +16,6 @@ Thumbs.db
 # Editor directories
 .vscode/
 .idea/
+
+# Dependencies
+package-lock.json
