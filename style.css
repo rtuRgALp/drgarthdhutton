@@ -685,9 +685,9 @@ body {
 }
 
 .scroll-to-top.visible {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
 }
 
 .scroll-to-top svg {
@@ -697,14 +697,13 @@ body {
 }
 
 .dark-mode .scroll-to-top {
-  background-color: var(--bg-secondary);
-  color: var(--gh-blue-dark);
-  border-color: var(--gh-blue-dark);
+  background-color: var(--gh-blue-dark);
+  color: var(--text-on-dark);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
 .dark-mode .scroll-to-top:hover {
-  background-color: var(--gh-blue-dark);
+  background-color: var(--gh-blue-dark-hover);
   color: var(--text-on-dark);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
 }
