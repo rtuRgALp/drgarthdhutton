@@ -8,7 +8,7 @@
     "optimize:videos": "node scripts/optimize-videos.mjs",
     "optimize:all": "npm run optimize:images && npm run optimize:videos",
     "generate:favicon": "node scripts/generate-favicon.mjs",
-    "dev": "npx http-server . -p 8080 -c-1",
+    "dev": "bash scripts/setup-dev.sh && npx http-server _dev -p 8080 -c-1 -o",
     "start": "npm run dev",
     "check:size": "bash scripts/check-size.sh"
   },
