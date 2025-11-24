@@ -269,24 +269,21 @@ body {
 @media (min-width: 768px) {
   .media-slot { height: 20rem; } /* ~h-80 */
 }
-/* PDF iframe specific - match standard letter page aspect ratio (8.5:11) */
-.media-slot > iframe {
-  position: absolute; inset: 0;
+/* PDF preview container */
+#pdfPreviewContainer {
+  position: relative;
+}
+#pdfPreviewContainer > iframe,
+#pdfPreviewContainer > div {
+  position: absolute; 
+  inset: 0;
   width: 100%; 
   height: 100%;
 }
-/* Mobile: smaller but proportional */
-.media-slot:has(iframe) { 
-  height: 32rem; /* ~512px for mobile */
-}
-/* Tablet and up: full page height */
-@media (min-width: 640px) {
-  .media-slot:has(iframe) { 
-    height: 38rem; /* ~608px for tablets */
-  }
-}
+/* Mobile: thumbnail view (default media-slot height) */
+/* Tablet and up: PDF iframe with increased height */
 @media (min-width: 768px) {
-  .media-slot:has(iframe) { 
+  #pdfPreviewContainer { 
     height: 42rem; /* ~672px - accounts for PDF toolbar + single page */
   }
 }
