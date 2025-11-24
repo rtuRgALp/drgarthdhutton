@@ -66,11 +66,14 @@ All colors defined in `:root` and `.dark-mode` (lines 1-70 of `style.css`). Use 
 `script.js` loads 12 images at a time (`this.perPage = 12`), but **LightGallery must access all 825 images**. Solution: dynamically adds hidden items to LightGallery's internal array (see `initLightGallery()` method). Don't change this pattern without testing full gallery navigation.
 
 ### Path Conventions
-- **HTML uses root-relative paths**: `/static/favicon.ico`, `/images/prayer_card/`
-- **JS/JSON uses current-relative**: `./gallery/pictures_web/`, `./data/images.json`
-- **CSS uses root-relative for background images**: `url('/images/tribute_slideshow_web/001.jpg')`
+**All paths use root-relative format** (starting with `/`) for both local dev and production:
+- **HTML navigation**: `/index.html`, `/gallery.html` (NOT `/src/`)
+- **Assets**: `/assets/css/style.css`, `/assets/js/script.js`
+- **Static files**: `/static/favicon.ico`, `/images/prayer_card/`, `/gallery/pictures_web/`
+- **Data**: `/data/images.json`
+- **CSS background images**: `url('/images/tribute_slideshow_web/001.jpg')`
 
-**Why?** Works in both local dev (`http://localhost:8080/`) and GitHub Pages subdirectory.
+**Critical**: Deployment workflow copies `src/*.html` to root and `src/assets/` to `/assets/`, so HTML files must NOT use `/src/` prefix in hrefs. Local dev accesses files at `http://localhost:8080/src/index.html` but paths within those files are root-relative.
 
 ## Build Scripts
 
@@ -116,6 +119,7 @@ All colors defined in `:root` and `.dark-mode` (lines 1-70 of `style.css`). Use 
 3. **Changing optimized images directly**: Source files in `gallery/pictures/` are truth
 4. **Forgetting Git LFS**: `git lfs pull` required to access originals locally
 5. **Testing gallery without http-server**: File protocol breaks fetch() for `images.json`
+6. **Using `/src/` prefix in navigation links**: Deployment copies HTML to root, so links must be `/index.html` not `/src/index.html`
 
 ## Key Files to Reference
 
