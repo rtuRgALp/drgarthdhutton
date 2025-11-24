@@ -66,14 +66,14 @@
     <nav class="bg-blue-dark shadow-lg sticky top-0 z-50 text-white">
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex justify-between items-center py-4">
-                <a href="./index.html" class="text-xl font-semibold text-white hover:text-blue-light transition"
+                <a href="/src/index.html" class="text-xl font-semibold text-white hover:text-blue-light transition"
                    aria-label="Home">Dr. Garth Dalwin Hutton</a>
                 <div class="hidden md:flex space-x-8">
                     <a href="#obituary" class="text-blue-light hover:text-white transition">Obituary</a>
                     <a href="#services" class="text-blue-light hover:text-white transition">Services</a>
                     <a href="#prayer" class="text-blue-light hover:text-white transition">Prayer Card</a>
                     <a href="#memories" class="text-blue-light hover:text-white transition">Memories</a>
-                    <a href="./gallery.html" class="text-blue-light hover:text-white transition">Gallery</a>
+                    <a href="/src/gallery.html" class="text-blue-light hover:text-white transition">Gallery</a>
                 </div>
                 <button id="mobile-menu-button" class="md:hidden focus:outline-none" aria-label="Toggle Menu">
                     <i data-feather="menu"></i>
@@ -85,7 +85,7 @@
                 <a href="#services" class="block py-2 text-blue-light hover:text-white transition">Services</a>
                 <a href="#prayer" class="block py-2 text-blue-light hover:text-white transition">Prayer Card</a>
                 <a href="#memories" class="block py-2 text-blue-light hover:text-white transition">Memories</a>
-                <a href="./gallery.html" class="block py-2 text-blue-light hover:text-white transition">Gallery</a>
+                <a href="/src/gallery.html" class="block py-2 text-blue-light hover:text-white transition">Gallery</a>
             </div>
         </div>
     </nav>
@@ -96,7 +96,7 @@
             <h2 class="text-3xl font-bold text-center mb-12">Obituary</h2>
             <div class="flex flex-col lg:flex-row items-stretch gap-8 mb-12">
                 <div class="lg:w-1/2">
-                    <img src="./images/tribute_slideshow_web/104.jpg" alt="Dr. Garth Dalwin Hutton"
+                    <img src="/images/tribute_slideshow_web/104.jpg" alt="Dr. Garth Dalwin Hutton"
                          class="rounded-lg shadow-lg w-full h-full object-cover min-h-[500px]" loading="lazy" decoding="async">
                 </div>
                 <div class="lg:w-1/2 text-left">
@@ -143,48 +143,26 @@
 
     <!-- Prayer Card -->
     <section id="prayer" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4" data-aos="fade-up">
-            <h2 class="text-3xl font-bold text-center mb-12">Funeral Prayer Card</h2>
+        <div class="max-w-6xl mx-auto px-4" data-aos="fade-up">
+            <h2 class="text-3xl font-bold text-center mb-6">Funeral Prayer Card</h2>
             <div class="text-center mb-12">
                 <p class="text-gray-700 max-w-2xl mx-auto">A special commemorative prayer card was created for family members attending the funeral service. We're honored to share this digital version with you.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mx-auto">
-                <div class="prayer-card p-8 text-center" data-aos="fade-right">
-                    <div class="prayer-card-content">
-                        <h3 class="text-2xl font-bold mb-8 text-gray-800">In Loving Memory of</h3>
-                        <h2 class="text-3xl font-bold mb-8 text-gray-900">Dr. Garth Dalwin Hutton</h2>
-                        <div class="w-32 h-32 mx-auto mb-8 rounded-full overflow-hidden border-4 border-blue-dark">
-                            <img src="./images/prayer_card/card_thumb.jpg" alt="Dr. Garth Dalwin Hutton" class="w-full h-full object-cover" loading="lazy">
-                        </div>
-                        <div class="border-t border-subtle w-16 mx-auto mb-8"></div>
-                        <p class="text-lg mb-6">Sunrise: August 9, 1961</p>
-                        <p class="text-lg mb-10">Sunset: August 9, 2025</p>
-                        <div class="mt-10">
-                            <p class="text-gray-700 font-medium leading-relaxed">
-                                "I shall not die,<br>but live,<br>And declare the works of the Lord"<br>
-                                <span class="text-sm">Psalm 118:17</span>
-                            </p>
-                        </div>
-                    </div>
+            
+            <!-- Prayer Card Images Side by Side -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10 max-w-2xl mx-auto">
+                <div class="bg-gray-50 p-3 rounded-lg shadow-lg max-w-xs mx-auto w-full" data-aos="fade-right">
+                    <img src="/images/prayer_card/front.png" alt="Prayer Card Front - Dr. Garth Dalwin Hutton" class="w-full h-auto rounded shadow-md" loading="lazy">
+                    <p class="text-center text-sm mt-2" style="color: var(--text-muted)">Front</p>
                 </div>
-                <div class="prayer-card p-8" data-aos="fade-left">
-                    <div class="prayer-card-content">
-                        <h2 class="text-3xl font-bold mb-4 text-gray-900 text-center">Always with a smile</h2>
-                        <div class="border-t border-subtle w-16 mx-auto mb-6"></div>
-                        <div class="prayer-card-poem text-lg italic text-center">
-                            <p class="mb-4">Now I'm with the angels, I've found eternal rest;<br>No more burdens to carry, I'm at peace and truly blessed.</p>
-                            <p class="mb-4">I worked with love and purpose, I gave with all my heart;<br>But God had called me homeward, it was time for me to part.</p>
-                            <p class="mb-4">I loved you all so dearly, my family, my pride, my song;<br>It was hard to leave you behind, but the Lord said, "Come along."</p>
-                            <p class="mb-4">Through years of care and service, through every task I gave,<br>I found my joy in helping, in the lives I sought to save.</p>
-                            <p class="mb-4">Now Jesus walks beside me, His light forever near;<br>A new life I am living, with no sorrow, pain, or fear.</p>
-                            <p class="mb-4">So weep for me no longer, for my journey is complete;<br>I've gone to dwell in Heaven, where God's embrace is sweet.</p>
-                            <p class="mb-4">Hold fast to one another, let your faith and love be true;<br>I'll be waiting, I'll be watching, always smiling over you.</p>
-                        </div>
-                    </div>
+                <div class="bg-gray-50 p-3 rounded-lg shadow-lg max-w-xs mx-auto w-full" data-aos="fade-left">
+                    <img src="/images/prayer_card/back.png" alt="Prayer Card Back - Poem" class="w-full h-auto rounded shadow-md" loading="lazy">
+                    <p class="text-center text-sm mt-2" style="color: var(--text-muted)">Back</p>
                 </div>
             </div>
-            <div class="text-center mt-12">
-                <p class="mb-6 text-gray-700 max-w-2xl mx-auto">This digital prayer card is available for download in high resolution for family members to print or keep as a digital keepsake.</p>
+            
+            <div class="text-center">
+                <p class="mb-6 text-gray-700 max-w-2xl mx-auto">Download the prayer card in high resolution to print or keep as a digital keepsake.</p>
                 <a href="#" id="downloadPrayerCard" class="btn btn-primary">
                     <i data-feather="download"></i> Download Prayer Card
                 </a>
@@ -196,14 +174,24 @@
     <section id="memories" class="py-20 bg-blue-light">
         <div class="max-w-6xl mx-auto px-4" data-aos="fade-up">
             <h2 class="text-3xl font-bold text-center mb-12">Lifetime Memories</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 <div class="bg-white p-8 rounded-lg shadow-lg text-center">
                     <h3 class="text-2xl font-bold mb-4 text-blue-dark">Memorial Magazine</h3>
-                    <!-- fixed-height media slot -->
-                    <div class="media-slot mb-4">
-                      <img src="./files/memorial_magazine/pdf_thumb.jpg" alt="Memorial Gazette Preview" loading="lazy" decoding="async">
+                    <!-- PDF preview embed -->
+                    <div class="media-slot mb-4 bg-gray-100 rounded overflow-hidden">
+                      <iframe 
+                        src="/files/memorial_magazine/drgarthdhutton.pdf#view=FitH&toolbar=1&navpanes=0" 
+                        type="application/pdf"
+                        class="w-full h-full border-0"
+                        title="Memorial Magazine PDF Preview"
+                        loading="lazy">
+                        <p class="p-4 text-sm text-gray-600">
+                          Your browser doesn't support PDF preview. 
+                          <a href="/files/memorial_magazine/drgarthdhutton.pdf" class="text-blue-dark underline" target="_blank">Click here to view</a>
+                        </p>
+                      </iframe>
                     </div>
-                    <p class="text-gray-700 mb-6 clamp-2">Download our digital memorial magazine commemorating Dr. Hutton's life and legacy.</p>
+                    <p class="text-gray-700 mb-6 clamp-2">Browse or download our digital memorial magazine commemorating Dr. Hutton's life and legacy.</p>
                     <a href="#" id="downloadMagazine" class="btn btn-primary">
                         <i data-feather="download"></i> Download Magazine
                     </a>
@@ -213,10 +201,10 @@
                     <h3 class="text-2xl font-bold mb-4 text-blue-dark">Photo Gallery</h3>
                     <!-- fixed-height media slot -->
                     <div class="media-slot mb-4">
-                      <img src="./gallery/pictures_web/2D8A6583.jpg" alt="Gallery Preview" loading="lazy" decoding="async">
+                      <img src="/gallery/pictures_web/001_2D8A6583.jpg" alt="Gallery Preview" loading="lazy" decoding="async">
                     </div>
                     <p class="text-gray-700 mb-6 clamp-2">Browse photos from the celebration of life events and memorial services.</p>
-                    <a href="./gallery.html" class="btn btn-outline">View Gallery</a>
+                    <a href="/src/gallery.html" class="btn btn-outline">View Gallery</a>
                 </div>
             </div>
         </div>
@@ -243,7 +231,7 @@
                         <h4 class="text-lg font-medium mb-4">Memories</h4>
                         <ul class="space-y-2">
                             <li><a href="#memories" class="text-blue-light hover:text-white transition">Life Story</a></li>
-                            <li><a href="./gallery.html" class="text-blue-light hover:text-white transition">Gallery</a></li>
+                            <li><a href="/src/gallery.html" class="text-blue-light hover:text-white transition">Gallery</a></li>
                         </ul>
                     </div>
                 </div>
@@ -337,8 +325,8 @@
       });
 
       const prayerCardFiles = [
-        { name: 'prayer_card_front.png', url: './images/prayer_card/front.png' },
-        { name: 'prayer_card_back.png',  url: './images/prayer_card/back.png' }
+        { name: 'prayer_card_front.png', url: '/images/prayer_card/front.png' },
+        { name: 'prayer_card_back.png',  url: '/images/prayer_card/back.png' }
       ];
 
       document.getElementById('downloadPrayerCard')?.addEventListener('click', async (e) => {
@@ -367,7 +355,7 @@
       document.getElementById('downloadMagazine')?.addEventListener('click', async (e) => {
         e.preventDefault();
         try {
-          const pdfUrl = './files/memorial_magazine/drgarthdhutton.pdf';
+          const pdfUrl = '/files/memorial_magazine/drgarthdhutton.pdf';
           const resp = await fetch(pdfUrl, { cache: 'no-store' });
           if (!resp.ok) throw new Error('Failed to fetch magazine');
           const blob = await resp.blob();

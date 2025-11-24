@@ -22,7 +22,7 @@ function titleFromFilename(file) {
 }
 
 function toSrc(relPath) {
-  return `./${relPath.replace(/\\/g, "/")}`;
+  return `/${relPath.replace(/\\/g, "/")}`;
 }
 
 /**
@@ -35,7 +35,7 @@ function toOptimizedSrc(sourceRelPath) {
   // Change extension to .jpg (our optimization output format)
   const optimizedName = parsed.name + ".jpg";
   const optimizedPath = path.join(optimizedDir, optimizedName);
-  return `./${optimizedPath.replace(/\\/g, "/")}`;
+  return `/${optimizedPath.replace(/\\/g, "/")}`;
 }
 
 async function getMetadata(file) {
@@ -117,7 +117,7 @@ async function main() {
     
     // Check if optimized version exists
     const optimizedSrc = toOptimizedSrc(rel);
-    const optimizedPath = optimizedSrc.slice(2); // Remove './'
+    const optimizedPath = optimizedSrc.slice(1); // Remove leading '/'
     let finalSrc = toSrc(rel); // Default to original
     
     try {

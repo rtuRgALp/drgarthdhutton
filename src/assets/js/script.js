@@ -64,7 +64,7 @@ class Gallery {
 
   async loadImages() {
     try {
-      const res = await fetch('./data/images.json', { cache: 'no-store' });
+      const res = await fetch('/data/images.json', { cache: 'no-store' });
       if (!res.ok) throw new Error(`manifest ${res.status}`);
       this.images = await res.json();
       this.filteredImages = [...this.images];
