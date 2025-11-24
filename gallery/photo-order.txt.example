@@ -1,0 +1,19 @@
+# Photo Order Configuration
+#
+# List filenames (one per line) in the order you want them to appear in the gallery.
+# - Lines starting with # are comments and will be ignored
+# - Empty lines are ignored
+# - Only list the filename (e.g., "photo.jpg"), not the full path
+# - Photos not listed here will appear after the ordered ones, sorted by date
+#
+# Example:
+# favorite_family_photo.jpg
+# graduation_2020.jpg
+# vacation_beach.jpg
+# wedding_day.jpg
+#
+# To use this file:
+# 1. Copy this file to gallery/photo-order.txt
+# 2. List your photos in desired order
+# 3. Run: npm run build:manifest
+# 4. Commit the updated data/images.json

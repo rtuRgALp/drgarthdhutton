@@ -8,6 +8,7 @@ const IMAGES_DIR = "gallery/pictures";
 const OPTIMIZED_DIR = "gallery/pictures_web";
 const OUT_DIR = "data";
 const OUT_FILE = path.join(OUT_DIR, "images.json");
+const ORDER_FILE = "gallery/photo-order.txt"; // Optional: custom ordering
 
 // Include upper and lower case. Add HEIC/HEIF as best-effort.
 const exts = [
@@ -60,7 +61,34 @@ async function getMetadata(file) {
   }
 }
 
+/**
+ * Load custom photo order from file (optional)
+ * Returns a Map of filename -> order index
+ */
+async function loadCustomOrder() {
+  try {
+    const content = await fs.readFile(ORDER_FILE, "utf8");
+    const lines = content.split("\n")
+      .map(line => line.trim())
+      .filter(line => line && !line.startsWith("#")); // Allow comments
+    
+    const orderMap = new Map();
+    lines.forEach((filename, index) => {
+      orderMap.set(filename, index);
+    });
+    
+    console.log(`📋 Loaded custom order for ${orderMap.size} photos from ${ORDER_FILE}`);
+    return orderMap;
+  } catch (e) {
+    // File doesn't exist or can't be read - that's fine
+    return null;
+  }
+}
+
 async function main() {
+  // Load custom order if available
+  const customOrder = await loadCustomOrder();
+  
   // Only crawl photo_gallery subtree
   const pattern = `${IMAGES_DIR}/**/*.{${exts.join(",")}}`;
   const files = await fg(pattern, {
@@ -113,8 +141,31 @@ async function main() {
     });
   }
 
-  // Stable sort for deterministic diffs
-  entries.sort((a, b) => a.src.localeCompare(b.src));
+  // Sort entries based on custom order or fallback to date/filename
+  entries.sort((a, b) => {
+    if (customOrder) {
+      // Extract just the filename for lookup
+      const filenameA = path.basename(a.src);
+      const filenameB = path.basename(b.src);
+      const orderA = customOrder.get(filenameA);
+      const orderB = customOrder.get(filenameB);
+      
+      // If both have custom order, use it
+      if (orderA !== undefined && orderB !== undefined) {
+        return orderA - orderB;
+      }
+      // If only A has order, it comes first
+      if (orderA !== undefined) return -1;
+      // If only B has order, it comes first
+      if (orderB !== undefined) return 1;
+      // Neither has order, fall through to default sort
+    }
+    
+    // Default: Sort by date (newest first), then by filename
+    const dateCompare = b.date.localeCompare(a.date);
+    if (dateCompare !== 0) return dateCompare;
+    return a.src.localeCompare(b.src);
+  });
 
   await fs.mkdir(OUT_DIR, { recursive: true });
   await fs.writeFile(OUT_FILE, JSON.stringify(entries, null, 2) + "\n", "utf8");

@@ -218,6 +218,39 @@ The site is automatically deployed to GitHub Pages when changes are pushed to th
    
    **Why all three?** CI needs originals (LFS) to re-optimize if needed. Manifest triggers deployment.
 
+### Controlling Photo Order
+
+Photos are displayed in this priority order:
+
+1. **Custom order** (if `gallery/photo-order.txt` exists) - photos listed in file appear first in that order
+2. **By date** (newest first) - for photos not in custom order file
+3. **By filename** (alphabetical) - as tiebreaker
+
+**To set custom order:**
+```bash
+# 1. Create order file (copy from example)
+cp gallery/photo-order.txt.example gallery/photo-order.txt
+
+# 2. Edit and list filenames in desired order (one per line)
+# favorite_photo.jpg
+# second_photo.jpg
+# third_photo.jpg
+
+# 3. Rebuild manifest
+npm run build:manifest
+
+# 4. Commit
+git add gallery/photo-order.txt data/images.json
+git commit -m "Update photo order"
+```
+
+**Alternative: Rename files with numeric prefixes**
+```bash
+# Alphabetical sort will respect numbers
+001_first_photo.jpg
+002_second_photo.jpg
+```
+
 ### Dual Directory Pattern
 
 Every media type has TWO directories:
@@ -309,6 +342,7 @@ Every media type has TWO directories:
 3. **Changing optimized images directly**: Source files in `gallery/pictures/` are source of truth
 4. **Forgetting Git LFS**: Run `git lfs pull` to access originals locally
 5. **Testing without http-server**: File protocol (`file://`) breaks `fetch()` for JSON
+6. **Photo order not updating**: After changing `photo-order.txt` or renaming files, must run `npm run build:manifest`
 
 ## 📚 Key Files Reference
 
